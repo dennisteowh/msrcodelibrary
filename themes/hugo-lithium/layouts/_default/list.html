@@ -1,0 +1,43 @@
+{{ partial "header.html" . }}
+
+<main class="content" role="main">
+
+  {{ if .Content }}
+  <article class="article">
+    {{ if .Title }}
+    <h1 class="article-title">{{ .Title }}</h1>
+    {{ end }}
+    <div class="article-content">
+      {{ .Content }}
+    </div>
+  </article>
+  {{ end }}
+  <div class="archive">
+    {{ $pages := .Pages }}
+    {{ if .IsHome }}
+    {{ $pages = .Site.RegularPages }}
+    {{ end }}
+    {{ range (where $pages "Section" "!=" "")}}
+    <article class="archive-item">
+      <a href="{{ .RelPermalink }}" class="archive-item-link">{{ .Title }}</a>
+      <span class="archive-item-date">
+        {{ .Date.Format "2006-01-02" }}
+      </span> <br>
+      {{ if isset .Params "author" }}
+      <span class = "author"> by {{ .Params.Author }} </span>  <br>
+      {{ end }} 
+      <span class = "summary"> {{ .Summary }} </span> <br>
+      <div style="color:grey; font-size:16px;">
+        {{ if .Params.topics }}<strong>Topics:</strong> 
+        {{range .Params.topics}}<a href="{{ "/topics/" | relLangURL }}{{ . | urlize }}">{{ . }}</a> 
+        {{end}}
+      </div>
+      {{end}}
+    </article> 
+    {{ end }}
+  </div>
+
+</main>
+
+{{ partial "footer.html" . }}
+

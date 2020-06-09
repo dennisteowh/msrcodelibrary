@@ -1,0 +1,567 @@
+---
+title: "Maintain Order"
+author: "Dennis Teo"
+date: "2020-02-01"
+output: html_document
+topics: ["Cleaning", "Utility"]
+summary: "A function to sort randomized question orders based on the order they were presented to subjects."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+This is a short tutorial on the maintain.order() code. What this code does is it creates new columns in your dataset based on the order of the variables that you input (for each participant).  
+
+Here's the argument structure of the code.  
+
+maintain.order <- function(df, order.by, vars.to.order, new.category.name = "time", exact.match = TRUE, starts.with = TRUE, check = TRUE)  
+
+**df** is the dataset. For **order.by** , you input a list which has the order for each participant.
+For **vars.to.order** , you input a vector of the variables you want to order.
+
+Here's a simple example. Say you have 3 participants. Each participant responded to questions A,B,C,D but in different orders.
+
+```{r echo = FALSE}
+library(stringr)
+## function to clean text
+Clean_String <- function(string){
+  # Remove everything that is not a number or letter (may want to keep more 
+  # stuff in your actual analyses). 
+  temp <- string
+  
+  temp <- stringr::str_replace_all(temp,"[|]", " ")
+  # Shrink down to just one white space
+  temp <- stringr::str_replace_all(temp,"[\\s]+", " ")
+  # Split it
+  temp <- stringr::str_split(temp, " ")[[1]]
+  # Get rid of trailing "" if necessary
+  indexes <- which(temp == "")
+  if(length(indexes) > 0){
+    temp <- temp[-indexes]
+  } 
+  return(temp)
+}
+
+
+## note that order.by is probably a list
+maintain.order <- function(df, order.by, vars.to.order, new.category.name = "time", exact.match = TRUE, starts.with = TRUE, check = TRUE) {
+  
+  
+  ## dealing with different list structures
+  if(!is.list(df[ ,order.by][[1]])) {
+    
+    order.col <- df[ ,order.by]
+    
+  } else if(!is.list(df[ ,order.by][[1]][[1]])) {
+    
+    order.col <- df[ ,order.by][[1]]
+    
+  } else if(!is.list(df[ ,order.by][[1]][[1]][[1]])) {
+    
+    order.col <- df[ ,order.by][[1]][[1]]
+    
+  } else {
+    
+    print("ERROR: The list structure for order.by is not appropriate")
+    
+  } ## order.col fixes the structure of the list
+  
+
+  if (exact.match == TRUE) { ## if vars.to.order names matches order.by exactly
+    
+    ## indexing variables to order by list to order by
+    list.index <- list()
+    for (i in 1:nrow(df)){
+      
+      temp.index <- which(order.col[[i]] %in% vars.to.order)
+      
+      list.index <- c(list.index, list(order.col[[i]][temp.index]))
+      
+    } ## this produces a list of the correct order for each participant
+    
+    
+    order.length <- c()
+    for (i in 1:nrow(df)) {
+      
+      temp <- length(list.index[[i]])
+      order.length <- c(order.length, temp)
+      
+    }
+    
+  # max.order.length <- max(order.length) ## this gets maximum number of variables across participants
+  #   
+  #   
+  #   
+  #   ## initializing new columns
+  #   for (i in 1:max.order.length) {
+  #     
+  #     ## initialize new column
+  #     df[, paste(new.category.name, i, sep = ".")] <- NA
+  #     
+  #   }
+    
+    
+    
+    
+    for (i in 1:nrow(df)) {
+      
+      for (j in 1:order.length[i]) {
+        
+        
+        df[i, paste(new.category.name, j, sep = ".")] <- df[i , list.index[[i]][j]]
+        
+        
+      }
+      
+    }
+    
+    if (check == TRUE){
+      print(list.index) ## returns order list for each participants for checking
+    } else {
+      NULL
+    }
+  
+  return(df)
+    
+  } else if (exact.match == FALSE & starts.with == TRUE) { #if order.by variable pattern in vars.to.order
+    
+    
+    ## getting variable names of vars.to.order via list.index
+    
+    list.index <- list()
+    
+    for (i in 1:nrow(df)) {
+      
+      temp.index <- c()
+      
+      for (j in 1:length(order.col[[i]])) {
+        
+        index <- grep(paste0("^", order.col[[i]][j]), vars.to.order)   
+        
+        if (length(index) == 0){
+          
+          NULL
+          
+        } else {
+          
+          temp.index <- c(temp.index, vars.to.order[index]) ## getting ordered variables for each participant
+          
+        }
+        
+      }
+      
+      list.index <- c(list.index, list(temp.index)) ## getting list of order variables
+      
+    }
+    if (check == TRUE){
+      print(list.index)
+    } else {
+      NULL
+    }
+    
+    order.length <- c()
+    for (i in 1:nrow(df)) {
+      
+      temp <- length(list.index[[i]])
+      order.length <- c(order.length, temp)
+      
+    }
+    
+ #   max.order.length <- max(order.length) ## this gets maximum number of variables across participants
+    
+    
+    for (i in 1:nrow(df)) {
+      
+      for (j in 1:order.length[i]) {
+        
+        
+        df[i, paste(new.category.name, j, sep = ".")] <- df[i , list.index[[i]][j]]
+        
+        
+      }
+      
+    }
+    
+    return(df)
+    
+    
+    
+  } else if (exact.match == FALSE) { #if order.by variable pattern in vars.to.order
+    
+
+    
+    ## getting variable names of vars.to.order via list.index
+    
+    list.index <- list()
+    
+    for (i in 1:nrow(df)) {
+      
+      temp.index <- c()
+      
+      for (j in 1:length(order.col[[i]])) {
+      
+      index <- grep(order.col[[i]][j], vars.to.order)   
+      
+      if (length(index) == 0){
+        
+        NULL
+        
+      } else {
+        
+      temp.index <- c(temp.index, vars.to.order[index]) ## getting ordered variables for each participant
+      
+      }
+      
+      }
+      
+      list.index <- c(list.index, list(temp.index)) ## getting list of order variables
+      
+    }
+    if (check == TRUE){
+    print(list.index)
+    } else {
+      NULL
+    }
+    
+    order.length <- c()
+    for (i in 1:nrow(df)) {
+      
+      temp <- length(list.index[[i]])
+      order.length <- c(order.length, temp)
+      
+    }
+    
+ #   max.order.length <- max(order.length) ## this gets maximum number of variables across participants
+    
+    
+    for (i in 1:nrow(df)) {
+      
+      for (j in 1:order.length[i]) {
+        
+        
+        df[i, paste(new.category.name, j, sep = ".")] <- df[i , list.index[[i]][j]]
+        
+        
+      }
+      
+    }
+    
+    return(df)
+    
+    
+    
+  } else {
+    
+    NULL
+    
+  }
+  
+}
+
+```
+
+```{r}
+
+df <- data.frame(px = c(1,2,3),
+                  A = c(2, 4, 6),
+                 B = c(4, 6, 2),
+                 C = c(6, 4, 2),
+                 D = c(5, 6, 7 ))
+
+df$order <- c("A|B|C|D", "D|A|C|B", "D|B|C|A")
+
+df
+
+```
+
+First, you need to change the order column to a list so that R can recognize the individual items.
+
+```{r}
+
+df$order <- lapply(df$order, Clean_String)
+
+df$order
+```
+
+Now, you can use the maintain.order code. See that I can choose which variables I want to order. In this case, I don't care about D. When you run the code, the code will automatically generate a printout so you can double check if it got the sequence right.  
+
+See that new columns were created, time.1, time.2, and time.3. These are the values of "A", "B", and "C" in the order that participants did them.
+
+```{r}
+
+df2 <- maintain.order(df = df, order.by = "order", vars.to.order = c("A", "B", "C")) # print out for checking
+
+df2
+```
+
+There are other arguments you can play with although I already covered all the essential ones. For example if you wanted to rename the new columns. You can use the **new.category.name** argument.
+
+```{r}
+df3 <- maintain.order(df = df, order.by = "order", vars.to.order = c("A", "B", "C"), new.category.name = "response")
+
+df3
+```
+
+If your **vars.to.order** names don't match the order column exactly, you can change the **exact.match** argument to FALSE. Note that this only works if the pattern of your **vars.to.order** matches the **order.by** input.  
+
+Here's an example. let's say you measured the response times for participants to respond to "A", "B", "C", and "D" and you would like to order the time variables.
+
+```{r}
+df4 <- data.frame(df,
+                 A.time = c(20.2, 30.2, 40.2),
+                 B.time = c(10.1, 15.1, 20.1),
+                 C.time = c(52.6, 58.6, 63.6),
+                 D.time = c(1,2,3))
+
+print.data.frame(df4)
+```
+
+
+```{r}
+
+df4 <- maintain.order(df4, order.by = "order", vars.to.order = c("A.time", "B.time", "C.time"), exact.match = FALSE)
+
+df4
+
+```
+Finally, here's the raw code in case you want to just copy/paste without assessing the source code
+
+```{r}
+library(stringr)
+## function to clean text
+Clean_String <- function(string){
+  # Remove everything that is not a number or letter (may want to keep more 
+  # stuff in your actual analyses). 
+  temp <- string
+  
+  temp <- stringr::str_replace_all(temp,"[|]", " ")
+  # Shrink down to just one white space
+  temp <- stringr::str_replace_all(temp,"[\\s]+", " ")
+  # Split it
+  temp <- stringr::str_split(temp, " ")[[1]]
+  # Get rid of trailing "" if necessary
+  indexes <- which(temp == "")
+  if(length(indexes) > 0){
+    temp <- temp[-indexes]
+  } 
+  return(temp)
+}
+
+
+## note that order.by is probably a list
+maintain.order <- function(df, order.by, vars.to.order, new.category.name = "time", exact.match = TRUE, starts.with = TRUE, check = TRUE) {
+  
+  
+  ## dealing with different list structures
+  if(!is.list(df[ ,order.by][[1]])) {
+    
+    order.col <- df[ ,order.by]
+    
+  } else if(!is.list(df[ ,order.by][[1]][[1]])) {
+    
+    order.col <- df[ ,order.by][[1]]
+    
+  } else if(!is.list(df[ ,order.by][[1]][[1]][[1]])) {
+    
+    order.col <- df[ ,order.by][[1]][[1]]
+    
+  } else {
+    
+    print("ERROR: The list structure for order.by is not appropriate")
+    
+  } ## order.col fixes the structure of the list
+  
+
+  if (exact.match == TRUE) { ## if vars.to.order names matches order.by exactly
+    
+    ## indexing variables to order by list to order by
+    list.index <- list()
+    for (i in 1:nrow(df)){
+      
+      temp.index <- which(order.col[[i]] %in% vars.to.order)
+      
+      list.index <- c(list.index, list(order.col[[i]][temp.index]))
+      
+    } ## this produces a list of the correct order for each participant
+    
+    
+    order.length <- c()
+    for (i in 1:nrow(df)) {
+      
+      temp <- length(list.index[[i]])
+      order.length <- c(order.length, temp)
+      
+    }
+    
+  # max.order.length <- max(order.length) ## this gets maximum number of variables across participants
+  #   
+  #   
+  #   
+  #   ## initializing new columns
+  #   for (i in 1:max.order.length) {
+  #     
+  #     ## initialize new column
+  #     df[, paste(new.category.name, i, sep = ".")] <- NA
+  #     
+  #   }
+    
+    
+    
+    
+    for (i in 1:nrow(df)) {
+      
+      for (j in 1:order.length[i]) {
+        
+        
+        df[i, paste(new.category.name, j, sep = ".")] <- df[i , list.index[[i]][j]]
+        
+        
+      }
+      
+    }
+    
+    if (check == TRUE){
+      print(list.index) ## returns order list for each participants for checking
+    } else {
+      NULL
+    }
+  
+  return(df)
+    
+  } else if (exact.match == FALSE & starts.with == TRUE) { #if order.by variable pattern in vars.to.order
+    
+    
+    ## getting variable names of vars.to.order via list.index
+    
+    list.index <- list()
+    
+    for (i in 1:nrow(df)) {
+      
+      temp.index <- c()
+      
+      for (j in 1:length(order.col[[i]])) {
+        
+        index <- grep(paste0("^", order.col[[i]][j]), vars.to.order)   
+        
+        if (length(index) == 0){
+          
+          NULL
+          
+        } else {
+          
+          temp.index <- c(temp.index, vars.to.order[index]) ## getting ordered variables for each participant
+          
+        }
+        
+      }
+      
+      list.index <- c(list.index, list(temp.index)) ## getting list of order variables
+      
+    }
+    if (check == TRUE){
+      print(list.index)
+    } else {
+      NULL
+    }
+    
+    order.length <- c()
+    for (i in 1:nrow(df)) {
+      
+      temp <- length(list.index[[i]])
+      order.length <- c(order.length, temp)
+      
+    }
+    
+ #   max.order.length <- max(order.length) ## this gets maximum number of variables across participants
+    
+    
+    for (i in 1:nrow(df)) {
+      
+      for (j in 1:order.length[i]) {
+        
+        
+        df[i, paste(new.category.name, j, sep = ".")] <- df[i , list.index[[i]][j]]
+        
+        
+      }
+      
+    }
+    
+    return(df)
+    
+    
+    
+  } else if (exact.match == FALSE) { #if order.by variable pattern in vars.to.order
+    
+
+    
+    ## getting variable names of vars.to.order via list.index
+    
+    list.index <- list()
+    
+    for (i in 1:nrow(df)) {
+      
+      temp.index <- c()
+      
+      for (j in 1:length(order.col[[i]])) {
+      
+      index <- grep(order.col[[i]][j], vars.to.order)   
+      
+      if (length(index) == 0){
+        
+        NULL
+        
+      } else {
+        
+      temp.index <- c(temp.index, vars.to.order[index]) ## getting ordered variables for each participant
+      
+      }
+      
+      }
+      
+      list.index <- c(list.index, list(temp.index)) ## getting list of order variables
+      
+    }
+    if (check == TRUE){
+    print(list.index)
+    } else {
+      NULL
+    }
+    
+    order.length <- c()
+    for (i in 1:nrow(df)) {
+      
+      temp <- length(list.index[[i]])
+      order.length <- c(order.length, temp)
+      
+    }
+    
+ #   max.order.length <- max(order.length) ## this gets maximum number of variables across participants
+    
+    
+    for (i in 1:nrow(df)) {
+      
+      for (j in 1:order.length[i]) {
+        
+        
+        df[i, paste(new.category.name, j, sep = ".")] <- df[i , list.index[[i]][j]]
+        
+        
+      }
+      
+    }
+    
+    return(df)
+    
+    
+    
+  } else {
+    
+    NULL
+    
+  }
+  
+}
+```
+
+
