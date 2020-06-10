@@ -1,7 +1,7 @@
 ---
 title: "Maintain Order"
 author: "Dennis Teo"
-date: "2020-02-01"
+date: "2020-06-10"
 output: html_document
 topics: ["Cleaning", "Utility"]
 summary: "A function to sort randomized question orders based on the order they were presented to subjects."
