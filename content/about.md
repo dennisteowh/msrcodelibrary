@@ -19,7 +19,7 @@ For now, this website only accepts html file posts. It is recommended that you w
 It is also important that you add some YAML above your html file. YAML includes information about your file such as the title and date of publication. Without these, there is not enough information to generate a post. Minimally, you should at least include a title and the date of publication (YYYY-MM-DD). To add a YAML, you can open your html file via any text editor (e.g. Notepad, TextEdit) and add the YAML at the top of the document (see example [here](../yaml.html)). 
 
 1. Upload your HTML file  
-Once you have cleared the steps above, you are ready to post your code! Go to this website's [github page](https://github.com/dennisteowh/msrcodelibrary) and upload your file in the __content --> post__ folder. Wait a few minutes and the website should automatically update with your new post! You are also encouraged to include your .Rmd file in the same folder. While this won't be rendered, it allows our readers to access the source code when needed.
+Once you have cleared the steps above, you are ready to post your code! Go to this website's [github page](https://github.com/dennisteowh/msrcodelibrary) and upload your file in the __content --> post__ folder. Wait a few minutes and the website should automatically update with your new post! You are also encouraged to include your .Rmd and/or .R files in the same folder. While these files won't be rendered, it allows our readers to access the source code when needed.
 
 ## Some Tips and Standard Practices
 Here are some recommendations to follow if you wish to submit a post. 
