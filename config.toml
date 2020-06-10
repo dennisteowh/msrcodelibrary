@@ -34,7 +34,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     MathJaxVersion = "2.7.5"
 
     # path to the favicon, under "static"
-    favicon = "icons8-journal-50.ico"
+    favicon = "favicon.ico"
 
     [params.logo]
     url = "icons8-journal-50.png"
