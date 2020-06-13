@@ -13,7 +13,7 @@ For MSR lab members who wish to contribute to our growing library, you can follo
 This website is updated via netlify on github. To gain access to edit this website's github page, please contact Dennis Teo and provide either your github username or email. The permission will be sent to you via email.
 
 1. File Name and Format  
-For now, this website only accepts html file posts. It is recommended that you write your code in [R Markdown](https://bookdown.org/yihui/rmarkdown/) and knit your file to html to facilitate code sharing. Please ensure that the name of your html file has no white spaces and use "-" to separate words (e.g. "my-code.html"). Otherwise, netlify would not render your file.
+For now, this website only accepts html file posts. It is recommended that you write your code in [R Markdown](https://bookdown.org/yihui/rmarkdown/) and knit your file to html to facilitate code sharing. Please ensure that the name of your html file has no white spaces and use "-" to separate words (e.g. "my-code.html"). Otherwise, netlify might not render your file.
 
 1. Add YAML to your HTML file  
 It is also important that you add some YAML above your html file (not your Rmd file!). YAML includes information about your file such as the title and date of publication. Without these, there is not enough information to generate a post. Minimally, you should at least include a title and the date of publication (YYYY-MM-DD). To add a YAML, you can open your html file via any text editor (e.g. Notepad, TextEdit) and add the YAML at the top of the document (see example [here](../yaml.html)). 
