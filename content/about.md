@@ -27,7 +27,7 @@ Here are some recommendations to follow if you wish to submit a post.
 1. More on YAML  
 The only required information to add in your YAML are the __title__ and __date__. However, the others are useful too. 
     1. __summary__  
-It is highly recommended that you provide a short summary of your document. The default post will take the first 70 words of your document. That's alot of potentially unnecessary reading for our audience! Concisely describe what code you are sharing and why it is useful.
+It is highly recommended that you provide a short summary of your document. From your title alone, it might be difficult to convey what your post is about and why it is useful.
     1. __author__  
 Take credit for all the hard work you put in! Adding the author information will place your name along with each post.
     1. __topics__  
