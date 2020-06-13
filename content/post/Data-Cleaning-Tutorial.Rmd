@@ -1,0 +1,1471 @@
+---
+title: "Data Cleaning Tutorial"
+date: "2020-06-10"
+author: Dennis Teo
+summary: "This is a tutorial on the basics of data cleaning. It demonstrates common cleaning practices such as filtering, recoding, merging, and reshaping data using R."
+topics: ["Cleaning", "Tutorial"]
+header-includes:
+- \usepackage{setspace}
+- \doublespacing
+output:
+  html_document:
+    df_print: paged
+    number_sections: yes
+    theme: united
+    toc: yes
+    toc_depth: 3
+    toc_float: true
+fontsize: 16pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+---
+
+<style> 
+p {line-height:2em;} 
+</style>
+
+# Motivation for Learning Data Cleaning in R
+
+This Tutorial aims to teach the basics of data cleaning for Social Science Research.  
+
+Data cleaning can become frustrating in R (at least compared to SPSS and Excel) because you cannot edit the data spreadsheet directly in the R environment. Sometimes viewing the dataset itself is inconvenient and potentially laggy (for larger datasets).   
+
+However, there are also a few perks of using R to do data cleaning. Everything is documented in R using code. Thus, it is actually harder to make human errors in R compared to cleaning the data in Excel. You can keep track of all your changes and have your collaborators reproduce the data cleaning process.  
+
+Also, with efficient code, you can automate all the cleaning processes. Again, this makes it harder to make human errors compared with manually cleaning the dataset in excel. Another bonus is that if you are running multiple studies with similar response formats and data structures, you can re-use your data cleaning code across studies and save alot of time in the process.  
+
+Finally, some complicated data cleaning processes can actually be easier and less tedious to solve in R. Of course, using R flexibly to solve such problems requires some proficiency in using the language. This tutorial also aims to help develop these skills. That said, like all languages, it is difficult to attain fluency without actual practice. It is thus advisable that you strive to actively use the basics taught in this tutorial on actual problems that you encounter in data cleaning.  
+
+NOTE: This tutorial assumes some basic knowledge in R (vector and dataframe manipulation) and also uses some functions from the Tidyverse package. I will not assume any background knowledge on this package but I will use code from tidyverse without too much explanation. The Tidyverse package provides us many useful resources which make data cleaning easier and is thus worth sharing. However, most of the core skills to gain proficiency in R are within base R (the default tools in R). Thus, most of my explanations will instead be focused on how we can solve data management problems using functions from base R.  
+
+---
+
+# Overview
+
+Here's a quick overview of the topics covered so you have an idea whether this tutorial would benefit you or not. This tutorial is targeted at people who are trying to develop their proficiency in R (so some basic level is assumed). Thus, while the primary aim of this tutorial is to teach data cleaning in R, it also strives to develop the readers' skills in using R to solve novel data cleaning problems.    
+To do so, this tutorial will highlight a few common data cleaning problems and solve them in **multiple** ways. Some ways are shared for efficiency and utility. For example, the Tidyverse package boasts functions which are highly readable and user-friendly. This makes data cleaning smoother and easier. However, often times we face data cleaning issues that is difficult to solve with ready-made functions. More generally, I hope that readers walk away from this tutorial understanding that R is a program which can assist in solving all kinds of data management problems, even ones which are novel and has not been encountered before. Thus, this tutorial also shares and explains how data cleaning can be done in base R (the default tools in R). An observant user will notice that these codes can be used flexibly and applied to a whole range of other problems.  
+
+We will first begin with a section on **filtering data**. This is probably the most common instance of "data cleaning". We often want to remove some values from our dataset due to some collection error. Subsequently, we will cover **recoding variables**. This will teach us a host of methods to modify the values within our datasets. Subsequently, we will move onto **computing variables**. In social sciences, we often derive composites on our variables. Then, we will cover **reshaping data**. This mainly covers how to change a dataset from wide to long format and vice versa. Finally, we will cover a host of smaller issues which are useful to learn such as **renaming variables** and **saving and exporting data**.  
+
+It is useful to learn the basics of **for loops** and **if else statements** as they will help with solving novel data cleaning problems. Readers unfamiliar with the subject can see [here](https://msrcodelibrary.netlify.app/2020/06/13/for-loops-and-if-else-statements/). Ideally, these two topics should be read and understood first before moving onto some of the harder problems in the previous sections. A note will be provided when this knowledge is assumed.  
+
+
+
+# Filtering Data
+
+In this section, we will start with the simple problem of filtering data. During the cleaning stage, we often need to remove some rows due to external reasons (e.g. participants did not follow instructions, some pilot data were included in the dataset etc.). Here are some easy ways of filtering data using functions from Tidyverse.  
+
+We will start with a simple example of a messy dataset (called **messy.data**).
+
+```{r echo = FALSE}
+
+messy.data <- data.frame(id = c(1:4,5,5,5,6,7,7),
+                introversion = c(6,2,3,2,4,4,4,2,4,4),
+                attention.check = c("FAIL", "FAIL", rep("PASS",6), "FAIL", "FAIL"))
+
+messy.data
+```
+
+### Filtering Data - Tidyverse solution
+
+This dataset has many problematic rows. We will deal with them one at a time. First, we see that some participants failed the attention check used in the study. In particular, participants 1, 2, and 7. We can remove them using the **filter** function.
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+library(tidyverse) # filter and %>% requires tidyverse
+
+# filters out participants with id 1, 2, 7
+messy.data2 <- messy.data %>%
+  filter(!id %in% c(1,2,7))
+
+messy.data2
+
+```
+
+In this example, since we are filtering participants based on the condition attention.check = "PASS", we can likewise filter participants out using this conditional statement.  
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+#filters out participants who failed attention check
+messy.data2 <- messy.data %>%
+  filter(attention.check == "PASS") # keeps participants who passed
+
+messy.data2
+
+```
+
+
+### Filtering Data - Base R solution
+
+Here, we show how to solve the problem using base R. Here's how we can subset the rows 1,2,and 7 out of the dataset.
+
+```{r}
+
+messy.data[!messy.data$id %in% c(1,2,7), ] 
+
+
+```
+
+The code above seems complicated but it can be broken down into a few steps. First, the %in% operator checks when the left-hand side of the operator is in the right-hand side of the operator. It returns the value TRUE when the values in the left-hand side is present in the right-hand side and FALSE otherwise. Here, from the vector of participant IDs, we can find out where the IDs are either 1, 2, or 7.
+
+```{r}
+
+messy.data$id # just to show the vector of IDs 
+ 
+messy.data$id %in% c(1,2,7)
+
+```
+
+Using the not operator, !, we can get the inverse of the previous vector. Thus, getting a logical vector of participant IDs that are NOT 1,2, or 7.
+
+```{r}
+
+!messy.data$id %in% c(1,2,7)
+
+```
+
+Finally, using this logical statement within basic rules of subsetting, we can filter out the rows that has IDs 1,2, and 7. Remember to assign the output to an object (messy.data2).
+
+```{r}
+
+messy.data2 <- messy.data[!messy.data$id %in% c(1,2,7), ] # keeps only the rows that matches the TRUE values
+
+messy.data2
+
+```
+
+
+## Removing Duplicates
+
+Another issue with the messy.data is the duplicates. There are rows clearly the same as each other possibly due to multiple entries from the same participants. Here's the dataset again for reference. See that IDs 5 and 7 have duplicated rows.
+
+```{r echo = FALSE}
+
+messy.data <- data.frame(id = c(1:4,5,5,5,6,7,7),
+                introversion = c(6,2,3,2,4,4,4,2,4,4),
+                attention.check = c("FAIL", "FAIL", rep("PASS",6), "FAIL", "FAIL"))
+
+messy.data
+```
+
+### Removing Duplicates - Tidyverse solution
+
+Tidyverse has the **distinct** function which is really convenient for removing duplicated rows.
+
+```{r}
+
+library(tidyverse) #distinct and %>% requires tidyverse
+
+#Removes duplicated rows from a dataset
+#note that it always keeps the first row that appears in the dataset
+messy.data2 <- messy.data %>% distinct()
+
+messy.data2
+
+```
+
+The above code is useful for dealing with duplicated data. However, we might encounter scenarios where it fails to work. For example, let's say we want to remove participants who did a survey multiple times but there are still differences each time they did the survey, making it difficult to identify duplicated rows. Here's an example (**messy.data3**).
+
+```{r echo = FALSE}
+set.seed(100)
+
+messy.data3 <- data.frame(id = c(1:4,5,5,5,6,7,7),
+                introversion = c(6,2,3,2,4,3,4,2,4,1),
+                attention.check = c("FAIL", "FAIL", rep("PASS",6), "FAIL", "FAIL"),
+                time.taken = rnorm(10, 100, 30))
+
+messy.data3
+```
+
+In this case, the time.taken to complete the survey differs on each duplication. Thus, the previous code won't solve our duplication issues because the rows are technically non-equivalent. To fix this, **distinct** has a nice argument to filter duplicates based on a particular variable. For example, we can specify the **id** such that the code filters rows as long as the participant id is duplicated.  
+
+
+```{r removing duplicated data, echo=TRUE, warning=FALSE, message=FALSE}
+
+#removing rows which has duplicated participant ID
+messy.data4 <- messy.data3 %>% distinct(id, .keep_all = TRUE)
+
+messy.data4
+```
+
+In some cases, you might even want to specify multiple variables in the **distinct** function. For example, we previously wanted to remove the duplicates which had different time.taken because we considered the time taken to be irrelevant. However, if you look closely (refer below), you can see that some duplicates had different scores on introversion which is likely the variable of interest.  
+
+```{r echo = FALSE}
+
+set.seed(100)
+
+messy.data3 <- data.frame(id = c(1:4,5,5,5,6,7,7),
+                introversion = c(6,2,3,2,4,3,4,2,4,1),
+                attention.check = c("FAIL", "FAIL", rep("PASS",6), "FAIL", "FAIL"),
+                time.taken = rnorm(10, 100, 30))
+
+messy.data3
+```
+
+In the case you wish to retain such discrepancies, you can specify distinct to remove duplicates only if id AND introversion are the same.
+
+```{r}
+
+#note that you can keep adding other variables depending on your desired criteria
+#removing rows which has duplicated participant ID AND age
+messy.data4 <- messy.data3 %>% distinct(id, introversion, .keep_all = TRUE)
+
+messy.data4
+```
+
+
+
+### Removing Duplicates - Base R solution
+
+Base R has the **duplicated()** function which takes in vector or dataframe inputs. If the input is a vector, it returns TRUE when there are repeated values in the vector. For example, c(1, 2, 2) will return FALSE, FALSE, TRUE. If the input is a dataframe, it will return TRUE on repeated rows (example in code below).  
+
+This function can be used creatively to solve all the problems we went through earlier when combined with basic subsetting rules.  
+
+**Removing duplicates.**
+
+```{r}
+
+# original dataset for reference
+messy.data
+
+```
+
+
+```{r duplicates, echo=TRUE, warning=FALSE, message=FALSE}
+
+# Here's the basic code for checking duplicates
+# returns TRUE where there are duplicates
+duplicated(messy.data) 
+
+messy.data2 <- messy.data[!duplicated(messy.data) , ] # returns rows which were NOT duplicated
+
+messy.data2
+
+```
+
+**Removing duplicates based on a id only.**
+
+```{r echo = FALSE}
+set.seed(100)
+
+messy.data3 <- data.frame(id = c(1:4,5,5,5,6,7,7),
+                introversion = c(6,2,3,2,4,3,4,2,4,1),
+                attention.check = c("FAIL", "FAIL", rep("PASS",6), "FAIL", "FAIL"),
+                time.taken = rnorm(10, 100, 30))
+
+messy.data3
+```
+
+```{r}
+
+duplicated(messy.data3[, "id"]) ## checks where id has duplicates
+
+messy.data4 <- messy.data3[!duplicated(messy.data3[, "id"]), ]
+
+messy.data4
+```
+
+**Removing duplicates based on a id and introversion only.**
+
+```{r}
+
+duplicated(messy.data3[, c("id", "introversion")]) ## checks where id and introversion has duplicates
+
+messy.data4 <- messy.data3[!duplicated(messy.data3[, c("id", "introversion")]), ]
+
+messy.data4
+```
+
+
+# Recoding Variables
+
+In most data cleaning sessions, we likely need to change the values of some of our variables. This could be due to simple mistakes from data entry (key in wrong id) or changing uninterpretable responses to NAs.
+
+
+## Simple recoding of one value of one variable to another value
+
+```{r echo = FALSE}
+
+messy.data5 <- data.frame(id = c(1:4,5,5,5,6,7,7),
+                introversion = c(5,2,3,2,4,-99,4,2,4,4),
+                school = c(rep("NUS", 5), "N(S", "N(S","NUS","NUS","N(S"),
+                gender = c(rep("Male", 5), rep("Female", 5)))
+
+messy.data5
+```
+
+Here's another version of our messy data, **messy.data5**. Not only does it have weird values on the **introversion** variable, there are some mistyped entries in the school variable.  
+
+To recode values, we need to refer to them and assign new values. This is essentially the basics for any recoding problem. Here's our first example. In the Introversion variable, we have a value outside the range of expected values between 1 to 5 (ie. -99). In this instance, I would like to recode this abnormal value to NA (missing value). First, I locate where introversion == -99 in the dataset. Next, I assign these case(s) to the new value, NA.  
+
+I will show this step-by-step in the example below.  
+
+This logical statement tells us where introversion is equals to -99
+
+```{r}
+
+messy.data5$introversion
+
+messy.data5$introversion == - 99
+
+```
+
+Each value of introversion corresponds to a row in our data set. Thus, we can use this logical statement to extract the rows where introversion == -99.  
+
+```{r}
+
+messy.data5[messy.data5$introversion == - 99, ] 
+
+```
+
+Finally, we can get the exact location of introversion = - 99 by specifying the correct column.
+
+```{r}
+messy.data5[messy.data5$introversion == - 99, "introversion"] 
+```
+
+Lastly, assign the new value to this location.  
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+#This changes any -99 response in variable to NA
+messy.data5$introversion[messy.data5$introversion == -99] <- NA
+
+messy.data5
+
+```
+
+Next, I will recode "N(S" to "NUS (fixing typos) and convert the NA back to -99 (recoding NA values). See that the way to recode is the same method. I specify the location of the values I want to change within the dataset and assign it to the new value.  
+
+```{r}
+
+# changing spelling mistake of NUS
+messy.data5$school[messy.data5$school == "N(S"] <- "NUS"
+
+messy.data5
+
+```
+
+For the case of NAs, we use the is.na() function to locate where the NAs are.  
+
+```{r}
+
+# note that if you are recoding NAs, the code is different. you need to use is.na() and !is.na()
+
+# changing NA back to -99
+messy.data5$introversion[is.na(messy.data5$introversion)] <- -99
+
+messy.data5
+```
+
+```{r echo = FALSE}
+
+messy.data5$introversion[messy.data5$introversion == -99] <- NA
+
+```
+
+
+## Reverse-coding
+
+Other than changing values to NA and fixing simple mistakes, recoding is also useful for dealing with reverse-coded items.
+
+Here's a simple code for reverse-coding. Say you have 5 response options, 1 (Stongly Disagree) to 5 (Strongly Agree). You can simply subtract the variable from 6 to reverse-code the variable.
+
+```{r reverse-coding, echo=TRUE, warning=FALSE, message=FALSE}
+
+messy.data5$introversion.reversed <- 6 - messy.data5$introversion
+
+## just to show that the variable was reversed
+messy.data5[, c(1,2,5)]
+```
+
+## Dummy coding
+
+For some analysis such as regression, we might have a need to dummy code our variables. For example, in **messy.data5**, we might want to change "Male" to 0 and "Female" to 1.  
+
+```{r}
+
+messy.data5$gender <- ifelse(messy.data5$gender == "Male", 0, 1)
+
+messy.data5
+
+```
+
+This **ifelse** code changes gender to 0 if its "Male" and 1 if its "Female" (while the syntax looks different, this code follows a similar logic to the if else statements taught in [this post](https://msrcodelibrary.netlify.app/2020/06/13/for-loops-and-if-else-statements/)). This code is really flexible if used properly. For example, you can chain ifelse functions to recode multiple values at once.  
+
+To illustrate, here's an edited version of **messy.data5** which has 3 different gender categories.
+
+```{r echo = FALSE}
+messy.data5 <- data.frame(id = c(1:4,5,5,5,6,7,7),
+                introversion = c(6,2,3,2,4,NA,4,2,4,4),
+                school = c(rep("NUS", 5), "NUS", "NUS","NUS","NUS","NUS"),
+                gender = c(rep("Male", 4), rep("Female", 4), rep("Others", 2)))
+
+messy.data5
+```
+
+
+```{r}
+
+messy.data5$gender <- ifelse(messy.data5$gender == "Male", 0,  ifelse(messy.data5$gender == "Female", 1, 2))
+
+# if male - 0
+# else if female - 1
+# all other cases - 2
+
+messy.data5
+```
+
+
+From the outputs, you can see that this way of dummy coding loses the semantic value of the variable. For example, without refering to the previous code, you can no longer discern if 0 means Male, Female, or Others.  
+
+One way around this is to use the **factor** function to convert gender into a factor class. This preserves the category names while still retaining the dummy coding.
+
+```{r echo = FALSE}
+messy.data5 <- data.frame(id = c(1:4,5,5,5,6,7,7),
+                introversion = c(6,2,3,2,4,NA,4,2,4,4),
+                school = c(rep("NUS", 5), "NUS", "NUS","NUS","NUS","NUS"),
+                gender = c(rep("Male", 4), rep("Female", 4), rep("Others", 2)))
+
+messy.data5
+```
+
+```{r}
+
+## dummy coded based on the order you specify in levels argument. Here Male will be coded as 0 and Female as 1
+messy.data5$gender <- factor(messy.data5$gender, levels = c("Male", "Female", "Others"))
+
+messy.data5
+
+## when you call the variable you can see how the levels are ordered
+messy.data5$gender
+```
+
+If you wish to relabel the categories, you can even specify the **labels** argument within **factor**.
+
+```{r}
+
+## dummy coded based on the order you specify in levels argument. Here Male will be coded as 0 and Female as 1
+messy.data5$gender <- factor(messy.data5$gender, levels = c("Male", "Female", "Others"), labels = c("M", "F", "O"))
+
+messy.data5
+
+messy.data5$gender
+```
+
+## Recoding of Multiple Variables Simultaneously
+
+So far, we have covered the basics of recoding. With these methods, you should be able to solve almost any recoding challenge you are faced with. However, in actual data cleaning problems, we often need to recode many values and many variables at a time. If you stick rigidly to what we have learning thus far, you will find that it is tedious to recode variables one at a time.  
+
+Here is an example where you have multiple variables which share the same response options such as different items on an introversion scale. To change the response options from characters to numbers, you have to do it one by one. 
+
+To help you save time, I share a few alternatives below.
+
+```{r echo = F}
+
+set.seed(100)
+
+introversion.data <- data.frame(id = 1:10,
+                 introversion1 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion2 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion3 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion4 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion5 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE), stringsAsFactors = FALSE)
+
+introversion.data
+
+```
+
+
+In this example dataset, **introversion.data**, the responses come in the form character responses. To do computations, we typically change them to numbers ie. "Strongly Disagree" to 1, "Disagree" to 2, "Neutral" to 3, "Agree" to 4, and "Strongly Agree" to 5.  
+
+However, in this case, we have 5 different scales we want to recode at the same time, since all share the same response options. Otherwise, we would repeat the same recoding code 5 times (for people who are familiar with **for** loops, this should not be a problem).  
+
+Again, the solution follows the basics of recoding. We find a way to refer to the values we want to change (including all the introversion items of interest) and recode them all at once through assignment.  
+
+Here is a logical dataframe which locates where the all the introversion items equate to "Strongly Agree".   
+
+```{r}
+introversion.data[ ,c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5")] ==  'Strongly Agree'
+
+```
+
+Like before, getting the logical statement/dataframe is insufficient, we need to use it within the original dataframe to successfully locate the values of interest.  
+
+```{r}
+introversion.data[ ,c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5")] [introversion.data[ ,c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5")] ==  'Strongly Agree'] 
+
+```
+
+Finally, we recode these values to 5 through assignment.  
+
+
+```{r }
+
+#This code recodes all the "Strongly Agree" responses in the specified columns to 5
+introversion.data[ ,c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5")][introversion.data[ ,c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5")] ==  'Strongly Agree'] <- "5" 
+
+#Here's a neater way of doing it
+
+introversion.items <- c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5")
+
+introversion.data[, introversion.items ][introversion.data[, introversion.items ] == 'Strongly Agree'] <- "5"
+
+introversion.data
+
+```
+
+The above is the most general code for recoding variables that I know of so it's good to learn it.  
+
+However, in terms of efficiency it's quite horrible. In the introversion.data example, we still need to go on recoding the response options for "Strongly Disagree", "Disagree", "Neutral", and "Agree". After which we need to continue coercing the variables to numeric vectors so that we can create composite scores.  
+
+I promised at the outset that I will share code which 1) teaches you the basics of cleaning in R and 2) are convenient to use in data cleaning problems. Here, I share a personal code which delivers on the latter promise. It uses the principle of **for loops** to perform recoding on multiple variables and multiple values at once. For people who grasp the concept of the for loop (taught in [this pose]()), you are highly recommended to read and understand the code.   
+
+```{r echo = F}
+
+set.seed(100)
+
+introversion.data <- data.frame(id = 1:10,
+                 introversion1 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion2 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion3 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion4 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion5 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE), stringsAsFactors = FALSE)
+
+
+```
+
+```{r }
+
+#this is the written function in case anyone wants to modify it or wants to see how it works
+recode.multiple <- function(dataframe, columns, from, to = 1:length(from), fun = as.numeric){ # creates a function with specified arguments
+
+  ## this does the heavy lifting of recoding
+  
+  for(i in 1:length(from)){ # for each response value
+    dataframe[, columns][dataframe[, columns] == from[i]] <- to[i] # change values in "from" vector into "to" vector within the target variables 
+  }
+  
+  if (is.null(fun)){ # this does the coercion when the fun argument is specified
+    NULL             # note that the default argument is as.numeric
+  } else{
+  dataframe[, columns] <- lapply(dataframe[, columns], fun)
+  }
+  
+  return(dataframe)
+} 
+
+#this is how it's used
+#recodes to numbers based on the order in the from argument
+introversion.data2 <- recode.multiple(introversion.data, 
+    columns = c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5"),
+    from = c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"))
+
+introversion.data2
+
+```
+
+To elaborate, this functions recodes all the introversion items' response options at the same time. It is important you specify the **from** argument *in order* as it will code them accordingly.  
+
+In this example, "Strongly Disagree" (first item in **from** argument) will be recoded to 1, "Strongly Disagree" to 2, "Neutral" to 3, and so on.  
+
+However, this is the default setting of the argument. If you wish to recode to another set of response options apart from values starting from one, you can specify the **to** argument.
+
+```{r }
+
+introversion.data3 <- recode.multiple(introversion.data, 
+    columns = c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5"),
+    from = c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"),
+    to = c(10, 20, 30, 40, 50))
+
+introversion.data3
+
+```
+
+One last thing nice about this function is that it automatically coerces the response options to numeric for you, even if it was originally of character class. However, in the event that this is actually against your purposes, you can specify the **fun** argument to be NULL (fun = NULL). This would leave the vector classes untouched in the dataset.  
+
+Finally, some of us might prefer to work with **factor** classes rather than **numeric** classes. In that event, you can simply specify the fun argument to be as.factor as shown below.
+
+
+```{r recode multiple 4, echo=TRUE, warning=FALSE, message=FALSE}
+
+introversion.data4 <- recode.multiple(introversion.data, 
+    columns = c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5"),     from = c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"),
+    to = c("ten", "twenty", "thirty", "forty", "fifty"),
+    fun = function(x){factor(x, levels = c("ten", "twenty", "thirty", "forty", "fifty"))}
+    ) ## note that you need to specify the levels argument or the factor might be ordered against your wishes
+
+introversion.data4
+
+str(introversion.data4) # structure of dataframe
+
+```
+
+After you have familiarised with the above code, you are ready to handle most recoding problems. Below, I share a few more specific challenges that you might encounter which is peripheral to the basics of recoding.  
+
+
+## Coercing multiple variables to numeric
+
+Unlike Excel and SPSS, R is very concerned about the class type of each variable in your data. In events where the class type is not numeric, you are not free to perform mathematical operations on them. As you probably learned before, as.numeric() is a function which allows you to coerce your variables into numeric. However, it can be tedious to coerce your variables one by one.  
+
+I share one method, using lapply(), to help you coerce multiple columns at the same time. lapply() works like a **for loop**, in that it helps you apply a particular function iteratively across the columns in your dataset.   
+
+```{r coercing multiple variables, echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE, results='hide'}
+dataframe[,c(1:48,50:775)] <- lapply(dataframe[, c(1:48,50:775)], as.numeric)
+
+```
+
+To use the function, you need to specify the columns you want to coerce. Here, I specified them through the number index. In this example they are columns 1 to 48 and 50 to 775. If you don't know the position then be ready to type in the column names. 
+
+## Find Column Numbers 
+As a bonus, here's a code which allows you to find out the column number of certain variables. We will use the introversion.data to illustrate.
+
+```{r }
+# finds column number of introversion3 variable
+which( colnames(introversion.data)=="introversion3" )
+
+```
+
+See that which() can extract out the information that "introversion3" is the fourth column of the dataframe. This code is very useful and can be used creatively when solving data handling problems.
+
+## Recoding categorical variables from different columns
+
+Here's a specific problem which I have encountered multiple times in data management. In this example, the categorical data, race, is split into different columns. For example, if we have 3 categories ("Black or African American", "White", "Asian") but we collect the data through binary options (ie. 1 if White, 0 if not White), we get 3 columns instead of 1 (1 column for each category). This violates the one column for each variable rule of thumb for data analysis. When we want to test for differences between races or other categorical variables arranged in this way, we need to combine them into a single column.  
+
+```{r echo=FALSE}
+race.data <- data.frame(
+  id = 1:7,
+  race_1 = c(NA, "Asian", rep(NA, 5)),
+  race_2 = c(NA, NA, "Black or African American", "Black or African American", rep(NA, 3)), 
+  race_3 = c(NA, NA, NA, NA, "White", "White", "White"), stringsAsFactors = F
+)
+
+race.data
+```
+
+Here's a personal code I use to solve the problem. This code works for the general problem of merging a couple of categories into one column.   
+
+In the race example, the code works wonders to solve the problem as seen below.   
+
+```{r recoding categories, echo=FALSE, warning=FALSE, message=FALSE}
+
+#Here's the function for transparency
+collapse.category <- function(dataframe, return.conflicts = TRUE) {
+  
+
+  ## identifying conflicting columns (NAs non-inclusive)
+  df_temp <- dataframe
+  df_conflicts <- c() ## initialise vector to store conflicts
+  
+  for(i in 1:nrow(df_temp)){
+    
+      df_non_duplicates <- NA # initialise on each row
+      
+      ## remove duplicates from these rows
+      df_non_duplicates <- df_temp[i , ][!duplicated(t(df_temp[i , ]))]
+      ## remove missing data
+      df_non_duplicates <- df_non_duplicates[!is.na(df_non_duplicates)]
+      
+      ## are there conflicting values???
+      if (length(df_non_duplicates) > 1){ ## assuming there are no conflicts, this length should be 1
+        
+        df_conflicts <- c(df_conflicts, i)
+        
+      } else {
+        
+        NULL
+      }
+      
+      
+  }
+  
+  #print(df_conflicts)
+  
+  ## reports if there are conflicts
+  if (length(df_conflicts) > 0){
+    print("WARNING: There are non-NA conflicts in the category columns")
+    
+  } else {
+    
+    print("CONGRATS: There are no conflicts in the category columns")
+  }
+  
+  result <- rep(NA, nrow(dataframe))
+  
+  #For each specified category column
+    for (i in 1:nrow(dataframe)){
+      for (j in 1:ncol(dataframe)){
+      #if the row of the specified column is not missing
+      if(!is.na(dataframe[i,j])){
+        #then slot that value into the new column
+       result[i] <- dataframe[i,j]
+      } else {
+        #otherwise leave as it is (NA)
+        NULL
+      }
+      
+    }
+    }
+  
+  if (length(df_conflicts) > 0 & return.conflicts==TRUE){
+    
+    print("returning LIST of conflicts. Output object CANNOT be new column of dataframe")
+    conflict.dataframe = dataframe[df_conflicts, ]
+    conflict.dataframe$conflict.rows <- df_conflicts
+    
+    return(list(result = result, conflict.dataframe = conflict.dataframe))
+    
+  } else {
+  return(result)
+  }
+
+}
+
+```
+
+
+```{r message=TRUE}
+
+# Creating a vector for the race variable names
+# You don't have to do this but i find this neater
+race_columns <- c("race_1", "race_2", "race_3")
+
+# Using the function 
+race.data$race_label <- collapse.category(race.data[, race_columns]) 
+
+race.data
+```
+
+One major issue occurs when there are columns with conflicting information. For example, if you are trying to collapse demographic variables measured at 2 timepoints, a participant might mistakenly indicate "white" at one timepoint and "asian" at another timepoint as seen in **race.data**. Note participants **3** and **7** (use the arrows to navigate through the dataset if your screen isn't wide enough).
+
+```{r echo=FALSE}
+race.data2 <- data.frame(
+  id = 1:7,
+  race_1_t1 = c(NA, "Asian", rep(NA, 5)),
+  race_1_t2 = c(NA, "Asian", rep(NA, 4), "Asian"),
+  race_2_t1 = c(NA, NA, "Black or African American", "Black or African American", rep(NA, 3)), 
+  race_2_t2 = c(NA, NA, NA, "Black or African American", rep(NA, 3)), 
+  race_3_t1 = c(NA, NA, NA, NA, "White", "White", "White"),
+  race_3_t2 = c(NA, NA, "White", NA, "White", "White", NA),
+  stringsAsFactors = F
+)
+
+# see id 3 and id 7
+race.data2
+```
+
+In this case, the function does a few things differently. First, it would resolve the conflicts using the **last** columns (in this case the second timepoint).  
+
+Secondly, the function helpfully returns a subsetted dataframe with the conflicting rows. This lets you check if the conflicts match your expectations. If you don't wish for this to happen, you can set the default argument of return.conflicts to FALSE.  
+
+```{r message=TRUE}
+
+#Creating a vector for the race variables
+#You don't have to do this but i find this neater
+race_columns <- c("race_1_t1",  "race_1_t2","race_2_t1", "race_2_t2", "race_3_t1", "race_3_t2")
+
+#Using the function
+check.conflict <- collapse.category(race.data2[, race_columns]) 
+
+check.conflict
+
+check.conflict$conflict.dataframe$conflict.rows # row numbers of rows with conflicts
+```
+
+See that the code warns you about conflicting columns and also informs you that it likes to return a **list** to show you the conflicts. Thus, if you tried running the code to create a new column in your dataset as in the previous example (ie. race.data$race_labels), the code will return an error.  
+
+The code also returns useful information to help you actively deal with conflicting information. It extracts the conflicting rows out for you so you can identify the problem AND it creates a new column (conflict.rows) to help you identify the conflicting row numbers.  
+
+While usually not ideal, there are times when you are fine with resolving the conflicts based on some column. In this situation, you can specify the **return.conflicts** as FALSE. This forcefully resolves the conflicts to the later columns (so order of the columns matter).  
+
+```{r message=TRUE}
+
+#Creating a vector for the race variables
+#You don't have to do this but i find this neater
+race_columns <- c("race_1_t1",  "race_1_t2","race_2_t1", "race_2_t2", "race_3_t1", "race_3_t2") 
+## NOTE: the conflicts will now be resolved based on the later columns. So race_3 inputs will be prioritised over
+## race_2 inputs and race_2 inputs will be prioritised over race_1 inputs
+## Conceptually, this doesn't make sense so make sure that if you are using this, the conflicts are 
+## resolved according to some meaningful reason
+
+#Now the race.data2$race.label can be used as the reference
+race.data2$race.label <- collapse.category(race.data2[, race_columns], return.conflicts = F) 
+
+race.data2
+```
+
+Here's the code for reference. Remember to run this first before using the function as it is not a given function in basic R.
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+#Here's the function for transparency
+collapse.category <- function(dataframe, return.conflicts = TRUE) {
+  
+
+  ## identifying conflicting columns (NAs non-inclusive)
+  df_temp <- dataframe
+  df_conflicts <- c() ## initialise vector to store conflicts
+  
+  for(i in 1:nrow(df_temp)){
+    
+      df_non_duplicates <- NA # initialise on each row
+      
+      ## remove duplicates from these rows
+      df_non_duplicates <- df_temp[i , ][!duplicated(t(df_temp[i , ]))]
+      ## remove missing data
+      df_non_duplicates <- df_non_duplicates[!is.na(df_non_duplicates)]
+      
+      ## are there conflicting values???
+      if (length(df_non_duplicates) > 1){ ## assuming there are no conflicts, this length should be 1
+        
+        df_conflicts <- c(df_conflicts, i)
+        
+      } else {
+        
+        NULL
+      }
+      
+      
+  }
+  
+  #print(df_conflicts)
+  
+  ## reports if there are conflicts
+  if (length(df_conflicts) > 0){
+    print("WARNING: There are non-NA conflicts in the category columns")
+    
+  } else {
+    
+    print("CONGRATS: There are no conflicts in the category columns")
+  }
+  
+  result <- rep(NA, nrow(dataframe))
+  
+  #For each specified category column
+    for (i in 1:nrow(dataframe)){
+      for (j in 1:ncol(dataframe)){
+      #if the row of the specified column is not missing
+      if(!is.na(dataframe[i,j])){
+        #then slot that value into the new column
+       result[i] <- dataframe[i,j]
+      } else {
+        #otherwise leave as it is (NA)
+        NULL
+      }
+      
+    }
+    }
+  
+  if (length(df_conflicts) > 0 & return.conflicts==TRUE){
+    
+    print("returning LIST of conflicts. Output object CANNOT be new column of dataframe")
+    conflict.dataframe = dataframe[df_conflicts, ]
+    conflict.dataframe$conflict.rows <- df_conflicts
+    
+    return(list(result = result, conflict.dataframe = conflict.dataframe))
+    
+  } else {
+  return(result)
+  }
+
+}
+
+```
+
+# Computing New Variables
+
+As important as creating new variables are to handling data, I won't spend much time here.  
+
+In the studies I encountered before, I faced 2 kinds of variable creation. One is the basic kind, which are really easy and a simple google search will solve the problem (Don't worry I will still share a basic template here).  
+
+The second kind is more complex. However, it also tends to be unique and specific to the study. Thus, sharing examples of these might be counterproductive. I recommend mastering the use of **for loops** and **if else** statements (taught in [this post](https://msrcodelibrary.netlify.app/2020/06/13/for-loops-and-if-else-statements/)) and combining that knowledge with the basic outlines for variable computations when solving more complex computational problems.  
+
+Here, I share the basic outline. There are 2 simple widely used computations, summing and averaging. (use the arrows to navigate through the dataset if your screen isn't wide enough)
+
+### Computing New Variables - Tidyverse solution
+
+```{r}
+
+library(tidyverse) #you need tidyverse to use mutate and %>%
+
+#this creates a new variable by summing the items and ignoring missing values
+introversion.data4 <- introversion.data2 %>%
+  rowwise() %>% #this tells R to average the scales for each row
+  mutate(introversion.sum = sum(introversion1, introversion2, introversion3, introversion4, introversion5, na.rm = T)) 
+
+introversion.data4
+
+
+```
+
+Here is how you can compute means. Note that for means, you have to put your variables within a vector c() as the **mean()** function takes only the input from the first argument to perform computations.  
+
+```{r}
+
+#this creates a new variable by summing the items and ignoring missing values
+introversion.data4 <- introversion.data2 %>%
+  rowwise() %>% #this tells R to average the scales for each row
+  mutate(introversion.mean = mean(c(introversion1, introversion2, introversion3, introversion4, introversion5), na.rm = T)) 
+
+introversion.data4
+
+
+```
+
+See that you can also pipe (%>%) the tidyverse functions together to compute both at once.
+
+```{r}
+
+introversion.data4 <- introversion.data2 %>%
+  rowwise() %>% #this tells R to average the scales for each row
+    mutate(introversion.sum = sum(introversion1, introversion2, introversion3, introversion4, introversion5, na.rm = T)) %>%
+  mutate(introversion.mean = mean(c(introversion1, introversion2, introversion3, introversion4, introversion5), na.rm = T)) 
+
+introversion.data4
+```
+
+### Computing New Variables - Base R solution
+
+Alternatively, you can also use the function **rowSums()** and **rowMeans()**.
+
+```{r}
+
+#this creates a new variable by summing the items and ignoring missing values
+introversion.data2$introversion.sum <- rowSums(introversion.data2[, 2:6], na.rm = T) 
+
+#this creates a new variable by averaging the items and ignoring missing values
+introversion.data2$introversion.mean <- rowMeans(introversion.data2[, 2:6], na.rm = T) 
+
+```
+
+### Creating Variable Counts
+
+As I have encountered a few instances of this computational problem, I decided to include it. Sometimes, we wish to create counts from a set of variables. For example, we might be interested in counting the number of responses given by each participant. In some tasks (such as speeded tests or persistence tests), we are interested in how many responses participants managed to provide.   
+
+Here is an example data set called **difficult.task**
+
+```{r echo = F}
+
+set.seed(98)
+
+difficult.task <- data.frame(
+  
+  id = 1:10,
+  question1 = sample(c("a", "b", "c", "d"),10, replace = T),
+  question2 = rep(NA,10),
+  question3 = rep(NA,10),
+  question4 = rep(NA,10),
+  question5 = rep(NA,10)
+  
+)
+
+for(i in 1:nrow(difficult.task)){
+
+for(j in 3:ncol(difficult.task)){
+  
+  if(is.na(difficult.task[i, j - 1])) { # if previous response is NA
+    
+    difficult.task[i, j] <- NA # then current response NA
+    
+  } else{
+    
+    difficult.task[i, j] <- sample(c("a","b","c","d", NA), 1) # else there is a 1/9 chance of it being NA
+    
+    
+  }
+  
+  
+}
+  
+}
+
+
+
+difficult.task
+
+
+```
+
+In this dataset, we have a varied number of responses given by each participant. Using the **is.na()** function allows us to locate where the NAs are is the dataset. However, we need to use this information to count the number of NAs and non-NAs.  
+
+One helpful tip to know is that R reads TRUE and FALSE values as 1s and 0s respectively.  
+
+```{r}
+
+TRUE + TRUE + FALSE
+
+FALSE + FALSE
+
+TRUE + TRUE
+
+```
+
+Using this tip in conjunction with the **is.na()** function makes counting NAs and non-NAs easy.    
+```{r}
+
+# vector with 2 NAs
+vector1 <-  c(3,5,2,NA,NA)
+vector1
+
+sum(is.na(vector1)) # count number of NAs in vector
+
+sum(!is.na(vector1)) # count number of non-NAs in vector
+
+```
+
+For dataframes, we can use the **rowSums()** function instead to sum the number of non-NAs by row.  
+
+
+```{r}
+
+question.names <- paste0("question", 1:5) 
+
+question.names # vector of question names
+
+difficult.task$response.count <- rowSums(!is.na(difficult.task[, question.names])) # sum number of non-NAs on each row
+
+difficult.task
+
+```
+
+
+
+
+
+<!-- Not sure if anyone else will face this problem. However, the code below is useful in the case whereby you wish to track the participants' responses. For example, let's say you have 300 participants do the strategic mindset scale but not all of them did every scale question. The code below allows you to keep count of the number of questions the participants answered. -->
+<!-- ```{r other, echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE, results='hide'} -->
+<!-- library(tidyverse) #again you need tidyverse for select and %>% -->
+
+<!-- count.responses <- dataframe %>% -->
+<!--   select(variable1, variable2, variable3) ##no need "" for select function -->
+
+<!-- count.responses <- !is.na(count.responses) -->
+
+<!-- dataframe$count.responses <- apply(count.responses, 1, sum) -->
+<!-- #this creates a new column called "count.responses" which keeps track of the number of responses out of the 3 variables, variable1, variable2, and variable3. -->
+<!-- ``` -->
+
+# Reshaping Data
+
+There are a few reasons we might want to reshape our data. Most commonly, we like to work with **wide data** where each row represents one participant and each column represents one variable. Most statistical analyses assume this data structure when taking in the input variables. Some data, such as longitudinal or time-series data is easier to analyse with a **long format** where each row represents one participant at a certain timepoint and each column represents a variable that is measured across the different timepoints.  
+
+In this section, we learn how to reshape our data from a wide format to a long format and vice versa. This uses the **gather** and **spread** function from the Tidyverse package.  
+
+## Gather - Wide to Long format
+
+In my opinion, the **gather** function is not very intuitive to use. Thus, I will start with a less practical example to show what the function does first.  
+
+Here, we have a wide data with introversion measured at 3 timepoints. Each row represents one participant and each column represents the introversion scores collected at each timepoint.  
+
+```{r echo = F}
+
+set.seed(100)
+
+time.data <- data.frame(
+  introversion.t1 = 1:10,
+  introversion.t2 = 11:20,
+  introversion.t3 = 21:30
+  
+)
+
+time.data
+
+```
+
+If we were interested in examining the temporal change of introversion over time, we need to change the dataset into a long format and add a variable for time.  
+
+Now, I will simply use the **gather function** on the dataset to give a sense of what it does.  
+
+```{r}
+
+library(tidyverse)
+
+gather(time.data)
+
+
+```
+
+As you can see, **gather** pools all the data into 2 columns, In the first column (key), we have all the column names of the original dataset. In the second column (value), we have the introversion scores. Importantly, the introversion scores are matched. In the original dataset, I set all the introversion scores for introversion.t1 from 1 to 10, introversion.t2 from 11 to 20, and introversion.t3 from 21 to 30. In the output dataset, we see that this relationship is retained. We essentially stacked the introversion scores for each column together and created a label using the original column names.  Each row now represents the introversion score of one participant at one timepoint.  
+
+The column names "key" and "value" are the default names of the output columns. To change them, you have to specify the arguments **key** and **value**.
+
+```{r}
+
+gather(time.data, key = "timepoint", value = "introversion.scores")
+
+
+```
+
+
+Hopefully, this gives you a sense of what **gather** does. It changes your data from wide to long by stacking the scores of each column together.  
+
+Okay, now let's look at a more realistic example.  
+
+```{r echo = F}
+
+set.seed(100)
+
+time.data <- data.frame(
+  ID = 1:10,
+  introversion.t1 = sample(1:5, 10, replace = T),
+  introversion.t2 = sample(1:5, 10, replace = T),
+  introversion.t3 = sample(1:5, 10, replace = T)
+  
+)
+
+
+time.data
+
+```
+
+Here, we have a very similar dataset (with more realistic values). However, one big change is the addition of an ID column. Because your ID is not a temporal variable, you cannot simply use the **gather** function on the dataset. 
+
+```{r}
+
+gather(time.data, key = "timepoint", value = "introversion.scores")
+
+
+```
+
+As you can see, the **gather** function does not know that "ID" is not a temporal variable and simply stacks it with the rest of the variables. This is problematic as the "ID" is linked to each participant. Thus, it should be another column on top of the 2 columns that **gather** gives you.  
+
+To fix this, you need to specify an argument to "ignore" the ID term.  
+
+```{r}
+
+time.data.long <- gather(time.data, key = "timepoint", value = "introversion.scores", -ID)
+# note you need to specify the key and value arguments to specify the -ID argument
+
+time.data.long
+
+```
+
+After specifing the key and value arguments (this is important), you use "-ID" to ignore the ID term when using gather. This once again stacks all columns, except ID, and subsequently adds the ID column back to the final dataset.  
+
+## Spread - Long to Wide format
+
+Once you understand how **gather** works, **spread** is easy to understand. While **gather** stacks columns, **spread** unstacks columns.  
+
+To neatly unstack the columns, you need to give spread the appropriate instructions. Spread needs to know which column to unstack (value column) and what names to give the new columns (key column).  
+
+```{r}
+time.data.long
+```
+
+In the time.data.long data, this corresponds to "timepoint" (key) and "introversion.scores" (value).  
+
+```{r}
+
+time.data.wide <- spread(time.data.long, key = "timepoint", value = "introversion.scores")
+
+time.data.wide
+```
+
+
+
+# Renaming Variables
+
+```{r echo = F}
+lousy.named.data <- data.frame(
+  
+  V1 = c(1:5),
+  V2 = rep(100, 5),
+  V3= c(3,6,3,1,3)
+  
+  
+)
+
+lousy.named.data
+```
+
+
+```{r }
+library(tidyverse) #you need tidyverse for rename and %>%
+
+#left hand side is the new name and right hand side is the old name
+#this is a good example of renaming the meaningless variable names to something meaningful
+lousy.named.data <- lousy.named.data  %>%
+  rename(id = V1,
+         progress = V2,
+         introversion = V3) 
+
+lousy.named.data
+```
+
+## Formatting column names
+
+In R, we like to standardize our variable names as much as possible. This is because you need to call the exact name of your variable often during data cleaning. Having unstandardized column names can make life frustrating as you have greater difficulty recalling the column names. Here I share some useful tricks to help with standardization.  
+
+When dealing with casings, we can use **tolower()** to change all column names to lowercase (**toupper()** for upper case if you like shouting). I also share another code to remove white spaces (you can either remove the white space or replace it with something else).  
+
+**showing how the functions work with vectors first**
+
+```{r }
+
+## lower case 
+a <- c("1 2 3", "Hello World", "NAME")
+tolower(a)
+
+## remove white spaces
+gsub(" ", "", a, fixed = TRUE)
+
+## change white space to .
+a <- c("   1 2 3", "Hello World", "NAME")
+gsub(" ", ".", a, fixed = TRUE)
+
+```
+
+**showing how the functions work with vdataframes**
+
+For dataframes there's good news. Usually the column names already defaults to removing white spaces with dots (.). However, we might still want all the variable names to be lower case.
+
+```{r}
+
+messy.names <- data.frame(
+  
+  "Identification Number" = 1:5,
+  "BaDly NaMed VariAble" = c(4,1,5,2,6),
+  "BADLY NAMES VARIABLE 2" = c(2,3,6,2,4)
+  
+  
+)
+
+messy.names
+
+
+colnames(messy.names) <- tolower(colnames(messy.names)) # colnames() is a function which extracts the column names of your dataset
+
+messy.names
+
+
+```
+
+
+
+## Adding suffix to multiple variables
+
+Sometimes we might wish to add a suffix to column names. Maybe to help distinguish it from another similar structured dataset. For this, we can use the paste() function.
+
+```{r}
+
+#this code adds a suffix .wave1 to all the variable names in the dataset
+colnames(messy.names) <- paste(colnames(messy.names), "wave1", sep = ".")
+#you can vary what separates the suffix such as using _ instead of .
+
+messy.names
+
+```
+
+
+
+# Exporting and Saving
+
+This is an extremely useful piece of code. Obviously, exporting the dataset is useful so that you can then use the dataset in further analyses. You can also use the new data file for analysis in SPSS.
+
+However, one additional useful trick is that you can use this function to check your data cleaning, It is a pain to use the view(data) function in R because it is so laggy. Exporting the dataset allows you to better check your hard work in excel.
+
+```{r export, echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE, results='hide'}
+write.csv(dataframe, "Name this as you please.csv")
+
+#note that this code exports the file in csv format. there are other code to export files in other formats of course. However, for me, csv is the most common format I use.
+```
+
+Another extremely useful piece of code is saving your object (any R object!!!). With this you can easily export and import your work from different R files. And obviously, you can save the object to use in the future (and you don't need to run all the code before it!).
+
+```{r echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE, results='hide'}
+
+save(object, file = "object.name.here.RData")
+
+# see that you have to add .RData to the back of your filename for this to work
+
+```
+
+
+
+# Merging Data
+
+When our data comes from multiple sources, we need to merge different datasets together. Tidyverse offers a range of tools which allow us to merge datasets in different ways (here is a [link](https://dplyr.tidyverse.org/reference/join.html) to a list of resources). However, I will only cover a simple template for merging since the outline for the code is similar.  
+
+To merge 2 or more datasets, you need **key(s)**. Keys are variables that are common across different datasets and merging functions use them to match datasets and combine them. Here are two datasets with the same key "ID".  
+
+```{r echo = F}
+
+set.seed(100)
+
+my.data1 <- data.frame(
+  
+  ID = 1:10,
+  introversion1 = sample(1:5, 10, replace = T)
+  
+)
+
+my.data1
+
+
+my.data2 <- data.frame(
+  
+  ID = 1:9,
+  introversion2 = sample(1:5, 9, replace = T)
+  
+)
+
+my.data2
+
+
+```
+
+To combine the 2 datasets, you can use the **full_join** function from Tidyverse (you can also use the **merge** function from base R but I encourage learning Tidyverse functions for merging since they have a good range of functions to handle almost any merging problems you might have).    
+
+```{r message = T, warning = T}
+
+library(tidyverse)
+
+my.data.final <- full_join(my.data1, my.data2)
+
+my.data.final
+
+```
+
+Observe that I deliberately left out one row from the second dataset. Yet, the function has no difficulties merging the 2 datasets. It merely notes that **introversion2** is missing for participant ID 10 and left an NA under that column.  
+
+Another thing to notice is the message that the function leaves for us (Joining by = "ID") upon execution. **full_join** automatically detects any similar column names from the 2 datasets and use them as keys. Importantly, you need to check if the key used was the one you had in mind, otherwise things can go very wrong. For example, you might have other variables in the datasets which share the same name that you don't want to use as keys.  
+
+Here is a modification of the 2 datasets with the additional variable "date.collected*.  
+
+```{r echo = F}
+
+set.seed(100)
+
+my.data1 <- data.frame(
+  
+  ID = 1:10,
+  introversion1 = sample(1:5, 10, replace = T),
+  date.collected = sample(seq(as.Date('2020/01/01'), as.Date('2020/01/10'), by="day"), 10)
+  
+)
+
+my.data1
+
+
+my.data2 <- data.frame(
+  
+  ID = 1:9,
+  introversion2 = sample(1:5, 9, replace = T),
+  date.collected = sample(seq(as.Date('2020/02/01'), as.Date('2020/02/10'), by="day"), 9)
+  
+)
+
+my.data2
+
+
+```
+
+```{r message = T, warning = T}
+
+my.data.final <- full_join(my.data1, my.data2)
+
+my.data.final
+
+```
+
+Because the 2 datasets share the same variables, "date.collected" and "ID", both variables are used as keys. However, since the 2 datasets are collected on different dates, they do not have any matches in "date.collected". This results in failure in matching.  
+
+Another important thing to note is to see how **full_join** handles mismatches. Amongst all the different **join** functions in Tidyverse, **full_join** is the most conservative function. It attempts to keep all the data used in the merging even when the keys do not match. Thus, the final dataset has 19 rows (10 rows from my.data1 and 9 rows from my.data2). The function creates a row for each unique key.  
+
+To select the keys you wish to use, you can specify the "by" argument in **full_join**.
+
+```{r message = T, warning = T}
+
+my.data.final <- full_join(my.data1, my.data2, by = "ID")
+
+my.data.final
+
+```
+
+Now, the "date.collected" variable is no longer treated as a key in the merging. However, because they still share the same name across the 2 datasets, full_join renames them as "date.collected.x" and "date.collected.y". If you do not wish for this to happen, it would be best to rename the variables before the merging process to avoid any problems.  
+
+Another important common mistake in merging are cases of duplicated IDs.  
+
+```{r echo = F}
+
+set.seed(100)
+
+my.data1 <- data.frame(
+  
+  ID = c(1:9,9,10),
+  introversion1 = sample(1:5, 11, replace = T)
+  
+)
+
+my.data1
+
+
+my.data2 <- data.frame(
+  
+  ID = c(1:9,9),
+  introversion2 = sample(1:5, 10, replace = T)
+  
+)
+
+my.data2
+
+
+```
+
+In these 2 datasets, we see that the ID, 9, is *duplicated in both datasets*. This is a problem for merging because it is impossible to match them without any additional criteria. In this case, full_join handles the problem by creating a row for each case (since it can't match the IDs, it just keeps all of them).  
+
+```{r message = T, warning = T}
+
+my.data.final <- full_join(my.data1, my.data2)
+
+my.data.final
+
+```
+
+Of course, this is likely not a coding problem. In real cases of data cleaning, such duplicates likely arise from collection errors. However, this source of error reminds you that you should deal with these duplicates before starting any merging processes.  
+
+Alternatively, if you have a second or third key which allow the duplicated IDs to be matched, this problem can be resolved as well.  
+
+```{r echo = F}
+
+set.seed(100)
+
+my.data1 <- data.frame(
+  
+  ID = c(1:9,9,10),
+  ID2 = c(rep(NA, 8), 101, 102, NA),
+  introversion1 = sample(1:5, 11, replace = T)
+  
+)
+
+my.data1
+
+
+my.data2 <- data.frame(
+  
+  ID = c(1:9,9),
+  ID2 = c(rep(NA, 8), 101, 102),
+  introversion2 = sample(1:5, 10, replace = T)
+  
+)
+
+my.data2
+
+
+```
+
+```{r message = T, warning = T}
+
+my.data.final <- full_join(my.data1, my.data2)
+
+my.data.final
+
+```
+
+
+
+
+
