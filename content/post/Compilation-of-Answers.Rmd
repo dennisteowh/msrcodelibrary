@@ -1,0 +1,401 @@
+---
+title: "Compilation of for loop assignment answers"
+author: "Dennis Teo"
+date: "2020-06-13"
+summary: "In a class, I gave my students a problem to solve using what they just learned about for loops and if else statements. This post shares their answers (anonymously) and shows how varied people's coding can be even for the same problem."
+tags: ["Excercise"]
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+```
+
+# The Problem
+
+Imagine that you administered a set of open-ended questions to some participants. Participants respond with words which could be correct or wrong. You have an answer bank which can be matched to the participants' responses. If their response matches any word in the answer bank, then they are correct. If their response fails to match any word, they are wrong.  
+
+Along with their responses, you also recorded the time taken for the participants' to answer each question. You are ultimately interested in the time taken for __correct responses__. Here is your task: 
+
+1. Create a dummy data set which includes made-up responses from a number of participants from the description above.  
+2. Compute the average time taken for correct responses for each participant.  
+
+---
+
+If you have little experience with for loops and if else statements, please at least attempt to solve this problem on your own. If you know nothing about these functions, you can learn about them here.  
+
+I share my students' code here to demonstrate different ways of solving the same problem. In that sense, for loops and if else statements are really extensions of our logical problem-solving abilities. All of us, with some hard work, can definitely get to the answer. However, we take different routes to get there since we all think slightly differently from each other. This series of answers also help train your ability to read other people's code which is a highly desirable skill if you wish to advance your training in R.  
+
+At the end, I also show a "model answer" to the problem.
+
+
+# Common First Attempt
+
+This was a common first attempt at the problem so I decided to show it. I used student B's dataset for illustration.
+
+```{r echo = FALSE}
+answer.bank <- c("bank","cat","dog")
+
+df2 <- data.frame(
+        answer1 =c("xijinping","trump","obama","dog","bank",
+                   "cat","pig","winnie","dog","corona",
+                   "virus","bank","dog","cat","cloud"),
+        answer.t1=c(10,20,30,40,50,
+                    60,70,80,90,100,
+                    110,120,130,140,150),
+        answer2 =c("xijinping","trump","dog","cat","bank",
+                   "pig","obama","winnie","dog","bank",
+                   "corona","bank","dog","cat","cloud"),
+        answer.t2=c(1,2,3,4,5,
+                    6,7,8,9,10,
+                    10,10,10,10,10))
+
+df2
+```
+
+This solution uses the power of the if else statement to compute the average correct response times. It separates the cases into 4 possibilities. If both answers are right, it computes the average time of both answers. If only one answer is right, it takes the time for that answer (this includes 2 possibilities; one for each answer). Lastly, if no answers are right, it leaves the output as NA.  
+
+This is a good example of a code which works but is not generalisable. For most of the problems we encounter in data management, it is okay to do this because at the end of the day, we only want to solve the problems in front of us. However, it is also useful to learn how to make our code more flexible so we can solve a larger range of problems (this is also the basis of abstraction).  
+
+For example, let's say we make the problem abit harder with 3 answers. Then we need to write 8 possibilities into our ifelse statements (all answers right (1p), two answers right (3p), one answer right (3p), no answers right (1p)). Basically, the number of conditions we need to write grows exponentially and becomes infeasible to write very quickly. The original problem which I got from a friend had 15 answers (that's 32768 possibilities). 
+
+```{r}
+
+for (i in 1:nrow(df2)){
+  
+  if (df2[i, "answer1"] %in% answer.bank & df2[i, "answer2"] %in% answer.bank ){ # if both answers correct
+    
+    df2[i  , "average.correct.time"] <- (df2[i, "answer.t1"] + df2[i, "answer.t2"])/2
+    
+  } else if (df2[i, "answer1"] %in% answer.bank & !df2[i, "answer2"] %in% answer.bank ){ # if only answer 1 correct
+    
+    df2[i  , "average.correct.time"] <- df2[i, "answer.t1"] 
+    
+  } else if (!df2[i, "answer1"] %in% answer.bank & df2[i, "answer2"] %in% answer.bank ){ # if only answer 2 correct
+    
+    df2[i  , "average.correct.time"] <-  df2[i, "answer.t2"] 
+    
+  } else { # else if both answers incorrect
+   
+     df2[i  , "average.correct.time"] <-NA
+  }
+  
+  
+}
+
+df2
+
+
+```
+
+
+
+# Student A's Attempt
+
+This isn't student A's final answer but I thought I should show this solution because it is very good for teaching.  
+
+In some sense, student A did a harder problem because student A interpreted my answer bank as a set of answers for each question (which is actually more realistic). That's why student A created 3 vectors of correct answers instead of one.   
+
+```{r}
+
+answer1 <- c("cat", "dog", "mouse", "cabinet", "jiajie")
+answer2 <- c("coffee", "tea", "bandung", "milo", "tehtarik")
+answer3 <- c("bak chor mee", "fire", "cheese", "coconut", "papaya")
+time1 <- c(4.3, 2.1, 3, 5.6, 10)
+time2 <- c(2, 1, 7, 5.8, 9)
+time3 <- c(13, 12.1, 7.9, 3.6, 10)
+dataframe <- data.frame (answer1, time1, answer2, time2, answer3, time3)
+dataframe
+
+correct_ans1 <- c("cat", "dog")
+correct_ans2 <- c("coffee", "tea", "tehtarik")
+correct_ans3 <- c("bak chor mee", "cheese", "coconut", "honeydew", "papaya")
+
+```
+
+Student A's solution captures all the important aspects of the correct solution. See that student A created a temporary column for each question, storing the response time if the answer was correct.  
+
+With the 3 temporary columns (pxtime1, pxtime2, pxtime3), student A computed a final average to get the correct output.  
+
+Most problems that we encounter involve a series of computational steps. While we are often tempted to get the answer right away, it is actually highly recommended that you break down the problem into a smaller series of sub-problems and solve them individually. This is exactly what student A did here.  
+
+```{r warning=F,message=F}
+
+# initializing the temporary columns
+dataframe$pxtime1 <- NA
+dataframe$pxtime2 <- NA
+dataframe$pxtime3 <- NA
+
+for (i in 1:5) {
+  
+  if (c(dataframe$answer1[i] %in% correct_ans1)) { # first question
+    dataframe$pxtime1[i] <- dataframe$time1[i]
+  } else {
+    dataframe$pxtime1[i] <- NA
+  }
+}
+
+for (i in 1:5) {
+  
+  if (c(dataframe$answer2[i] %in% correct_ans2)) { # second question
+    dataframe$pxtime2[i] <- dataframe$time2[i]
+  } else {
+    dataframe$pxtime2[i] <- NA
+  }
+}
+
+for (i in 1:5) {
+  
+  if (c(dataframe$answer3[i] %in% correct_ans3)) { # third question
+    dataframe$pxtime3[i] <- dataframe$time3[i]
+  } else {
+    dataframe$pxtime3[i] <- NA
+  }
+}
+dataframe
+
+library(psych)
+library(tidyverse)
+df <- dataframe %>%
+  rowwise() %>%
+  mutate(pxtime_mean = mean(c(pxtime1, pxtime2, pxtime3), na.rm = TRUE))
+df
+print.data.frame(df)
+```
+
+That said, there were some suggestions I gave student A for this code. You can see that student A used a similar looking code 3 different times, one for each question. When you are repeating code like that, that is a good sign to use a for loop whose main purpose is to repeat code.  
+
+# Student B's solution
+
+Student B actually gave me a few rounds of solutions so I decided to just share one of it. Student B's code is highly generalisable to any number of questions/answers and can easily serve as a model answer to this problem.
+
+```{r}
+df2 <- data.frame(
+        answer1 =c("xijinping","trump","obama","dog","bank",
+                   "cat","pig","winnie","dog","corona",
+                   "virus","bank","dog","cat","cloud"),
+        answer.t1=c(10,20,30,40,50,
+                    60,70,80,90,100,
+                    110,120,130,140,150),
+        answer2 =c("xijinping","trump","dog","cat","bank",
+                   "pig","obama","winnie","dog","bank",
+                   "corona","bank","dog","cat","cloud"),
+        answer.t2=c(1,2,3,4,5,
+                    6,7,8,9,10,
+                    10,10,10,10,10),
+        answer3 =c("xijinping","dog","trump","cat","bank",
+                   "pig","obama","winnie","dog","bank",
+                   "corona","bank","dog","cat","cloud"),
+        answer.t3=c(1,2,3,4,5,
+                    6,7,8,9,10,
+                    10,10,10,10,10))
+df2
+
+answer.bank <- c("bank","cat","dog")
+
+```
+
+The logic of student B's code captures the strength of using for loops. See that student B started by initializing a temporary vector called result when student B started the first for loop (looping through each participant). Student B then started a second for loop to iterate through the answers. Why did student B do this?  
+
+Student B did this so that the result vector would store the response times of the correct answers **for each participant**. After getting the intended response times, student B does another computation to get the average of these response times. Importantly, after each iteration, the loop starts again and **empties** the result vector. Thus, allowing the next round of computation to be done for the next participant.
+
+```{r}
+
+df2$answer.tmean <-NA
+
+
+for(i in 1:nrow(df2)){
+  
+    result <-c()
+    
+    for(a in c(1,3,5)){
+      if(df2[i, a] %in% answer.bank){
+      result <- c(result, df2[i, a+1])
+      }else{NULL}}
+    df2$answer.tmean[i]<-round(mean(result, na.rm = T), digits = 2)} ## round just rounds off the input to 2 decimal places
+
+df2 
+```
+
+
+# Student C Solution
+
+Student C's answer was the hardest to read among all the answers. However, student C's code presents yet another way of solving the same problem. Interestingly, the logic of student C's code is similar to that of student A's. Student C created a temporary column to store the correct response times for each question and did a second for loop to iterate the code across the number of questions.  
+
+This was student C's dummy dataset.
+
+```{r}
+# The Piece of Cake -------------------------------------------------------
+library (tidyverse)
+#creating the dataset 
+answer.bank <- c("chocolate", "cheese", "matcha")
+
+response_1 <- c("chocolate", "fruit", "lemon", "sponge", "matcha")
+time_1 <- c(5, 10, 5, 10, 5)
+
+response_2 <- c("cheese", "fruit", "straberry", "pandan", "chocolate")
+time_2 <- c(2, 3, 4, 3, 2)
+
+response_3 <- c("cheese", "fruit", "chocolate", "matcha", "berries")
+time_3<- c(4, 10, 5, 6, 7)
+
+cake <- data.frame(response_1, time_1, response_2, time_2, response_3, time_3)
+
+cake
+```
+
+To help facilitate reading, I modified student C's code abit and added some comments to help you understand what's going on. So first, student C created two vectors to store the response and time column names. Student C did this using the **paste** function (if you don't know what this does Google it!).  
+
+Next, student C iterated through the questions such that response.col and time.col will change on each iteration! On the first iteration of the i loop, response.col and time.col reflects the first answers' column names. When student C starts the second for loop to loop through the participants, student C created a temporary time_temp column to store the correct response times for just this first question. Student C then added this temporary column to another column (total_correct_time). This seems weird but the magic of student C's code haven't started yet.  
+
+On the next iteration of student C's i loop, the response.col and time.col changes to reflect the second answer's column names. Now, when student C adds the temporary column to the total_correct_time column, it updates to reflect the the total time of both iterations. Additionally, a count variable is created to count the number of correct responses so student C can compute a mean later.  
+
+After all 3 iterations was completed, student C then computed the average_correct_time using the total_correct_time and count variables.  
+
+```{r}
+
+#problem solving
+cake [,"total_correct_time"] <- 0
+count <- 0
+
+for (i in 1:3) {
+  
+  response.col <- paste ("response", i, sep = "_")
+  time.col <- paste ("time", i, sep = "_")
+  
+  
+  for (j in 1:nrow (cake)){
+    
+    if (cake [j, response.col] %in% answer.bank) { # note that response.col changes on each iteration of i loop
+      cake [j, "time_temp"] <- cake [j, time.col] # note that time.col changes on each iteration of i loop
+    } else {
+      cake [j, "time_temp"] <- 0
+    }
+  }
+  
+  cake [,"total_correct_time"] <- cake [, c("total_correct_time")] + cake [, c("time_temp")]
+  
+  # if time_temp is 0, then add 0 to count, otherwise add 1
+  count <- count + ifelse(cake [, c("time_temp")] == 0, 0, 1)
+                                                                     
+}
+cake [, "average_correct_time"] <- cake [, "total_correct_time"]/count
+
+cake 
+
+```
+
+
+
+# Dennis' Solution
+
+Here's my solution. I treat this as the model answer to this problem but from all the different answers provided, I want everyone to see that there are many different ways to solve the same problem. Thus, while I hope that you can learn from my code, you should not treat it as **the** correct answer.  
+
+First, I share some useful code which you can use to generate made-up data to test your code. **sample** allows you to randomly sample values from a given vector. The **size** argument specifies the number of times you want to sample from the vector and the **replace** argument lets you decide if you want to replace the value after each round of sampling.  
+
+**rnorm** lets you generate continuous data from a normal distribution. **n** specifies the number of draws, **mean** and **sd** allows you to specify the parameters of the normal distribution you are sampling from.
+
+```{r}
+## sample and rnorm has random elements
+## setting the seed ensures that the code is replicable 
+set.seed(100)
+
+answer.bank <- c("monkey", "dolphin", "cow")
+
+
+data <- data.frame(
+  px = 1:10,
+  
+  answer1 = sample(c("monkey", "rabbit","donkey"), size = 10, replace = T),
+  answer2 = sample(c("monkey", "dolphin","lion"), 10, replace = T),
+  answer3 = sample(c("lion", "kangaroo","gazelle"), 10, replace = T),
+  answer4 = sample(c("cow", "dolphin","human"), 10, replace = T),
+  answer5 = sample(c("rabbit", "dog","cat"), 10, replace = T),
+  
+
+  answer1.time = rnorm(n = 10, mean = 20, sd = 5),
+  answer2.time = rnorm(10, 25, 5),
+  answer3.time = rnorm(10, 30, 5),
+  answer4.time = rnorm(10, 20, 5),
+  answer5.time = rnorm(10, 15, 5)
+  
+  
+)
+
+
+data
+
+```
+
+I heavily annotated my code for pedagogical reasons. However, I encourage everyone (including myself) to annotate our code as a normal practice. This also makes our lives easier when we return to read/check our old code.  
+
+My solution is kind of a mish mesh of student B's + student C's solution. It follows student B's logic of creating a temporary vector for each participant to compute the final result. On a new participant, this vector gets emptied to compute the result for the next participant.  
+
+However, like student C, my target columns are abstracted. For example, data[i, accuracy [j] ] refers to the ith participant and jth answer. Thus, my code is generalisable to any dataset as long as the accuracy and time vectors match the corresponding column names.  
+
+When creating the dummy dataset, many used an answer, time, answer, time column format which some of my stuents have cleverly exploited. However, exploiting this data structure also means that your code will not be directly applicable to datasets which have different structures. Some of them also hand-specified the column numbers when writing the for loop which is also not scalable to larger datasets. Abstracting the code to use column names allows you to ensure that such concerns will not affect the utility of your code.  
+
+
+```{r}
+
+accuracy <- paste0("answer", 1:5) # column names of accuracy measures
+accuracy
+
+time <- paste0("answer", 1:5, ".time") # column names of response time measures 
+time 
+
+data[ , "average.correct.time"] <- NA # good practice to initialize the new column 
+ 
+for (i in 1:nrow(data)){ # for each participant (loop through rows)
+
+result = c() # initialize a temporary vector to store the values you want to use for computation
+
+for (j in 1:length(accuracy)){ # for each question (loop through length of accuracy measures)
+
+if (data[i , accuracy[ j ]] %in% answer.bank) { # check if answer is in answer.bank
+
+result <- c(result, data[i , time[ j ]]  ) # if yes, store it in temporary vector
+
+} else {
+
+result <- result # otherwise, leave the temp vector the same
+
+}
+} # close j loop
+
+data[i , "average.correct.time"] = sum(result)/length(result) # compute average of temporary vector
+
+# note that this computation is outside the j loop (question) but inside the i loop (participant)
+# this is because you are computing an average for each participant across all questions
+
+} # close i loop
+ 
+data
+```
+
+
+Finally, the purpose of creating a dummy dataset is so that you can easily check your code. So be sure to use a few "test cases" to check if your code gave the right answer.
+
+```{r}
+
+px1.check <- mean(c(17.80775, 23.89103, 24.90232))
+
+px1.check
+
+data[1, "average.correct.time"]
+
+px5.check <- NA
+
+px5.check
+
+data[5, "average.correct.time"]
+
+px9.check <- mean(c(28.11434 ))
+
+px9.check
+
+data[9, "average.correct.time"]
+
+```
+
+
