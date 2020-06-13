@@ -1,0 +1,362 @@
+---
+title: "Multiple Recoding and Collapsing Columns"
+date: "2020-06-10"
+author: Dennis Teo
+summary: "These are two custom functions which I found to be useful a number of occasions. muliple.recode() recodes multiple various simultaneously to reduce labour. collapse.category() combines multiple columns together."
+topics: ["Cleaning", "Utility"]
+header-includes:
+- \usepackage{setspace}
+- \doublespacing
+output:
+  html_document:
+    df_print: paged
+    number_sections: yes
+    theme: united
+fontsize: 16pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+---
+
+<style> 
+p {line-height:2em;} 
+</style>
+
+
+These are two custom functions which I shared before in ["Data Cleaning Tutorial"](https://msrcodelibrary.netlify.app/2020/06/10/data-cleaning-tutorial/). However, I thought a separate post for them would make them more accessible when needed.  
+
+multiple.recode() is useful for cleaning any dataset which have similar response options. It will save you the work of writing the for loop() from scratch.  
+
+collapse.category() is arguably less useful. However, I used it on several occasions so I figured it is worth sharing. It basically collapses different columns together. I detail one example of its use below.  
+
+# Recoding of Multiple Variables Simultaneously
+
+Here's an example dataset where you have many variables sharing the same set of response options.  
+
+```{r echo = F}
+
+set.seed(100)
+
+introversion.data <- data.frame(id = 1:10,
+                 introversion1 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion2 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion3 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion4 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE),
+                 introversion5 = sample( c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"), 10, replace = TRUE), stringsAsFactors = FALSE)
+
+introversion.data
+
+```
+
+```{r }
+
+#this is the written function in case anyone wants to modify it or wants to see how it works
+recode.multiple <- function(dataframe, columns, from, to = 1:length(from), fun = as.numeric){ # creates a function with specified arguments
+
+  ## this does the heavy lifting of recoding
+  
+  for(i in 1:length(from)){ # for each response value
+    dataframe[, columns][dataframe[, columns] == from[i]] <- to[i] # change values in "from" vector into "to" vector within the target variables 
+  }
+  
+  if (is.null(fun)){ # this does the coercion when the fun argument is specified
+    NULL             # note that the default argument is as.numeric
+  } else{
+  dataframe[, columns] <- lapply(dataframe[, columns], fun)
+  }
+  
+  return(dataframe)
+} 
+
+#this is how it's used
+#recodes to numbers based on the order in the from argument
+introversion.data2 <- recode.multiple(introversion.data, 
+    columns = c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5"),
+    from = c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"))
+
+introversion.data2
+
+```
+
+To elaborate, this functions recodes all the introversion items' response options at the same time. It is important you specify the **from** argument *in order* as it will code them accordingly.  
+
+In this example, "Strongly Disagree" (first item in **from** argument) will be recoded to 1, "Strongly Disagree" to 2, "Neutral" to 3, and so on.  
+
+However, this is the default setting of the argument. If you wish to recode to another set of response options apart from values starting from one, you can specify the **to** argument.
+
+```{r }
+
+introversion.data3 <- recode.multiple(introversion.data, 
+    columns = c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5"),
+    from = c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"),
+    to = c(10, 20, 30, 40, 50))
+
+introversion.data3
+
+```
+
+One other thing nice about this function is that it automatically coerces the response options to numeric for you, even if it was originally of character class. However, in the event that this is actually against your purposes, you can specify the **fun** argument to be NULL (fun = NULL). This would leave the vector classes untouched in the dataset.  
+
+Finally, some of us might prefer to work with **factor** classes rather than **numeric** classes. In that event, you can simply specify the fun argument as shown below.
+
+
+```{r recode multiple 4, echo=TRUE, warning=FALSE, message=FALSE}
+
+introversion.data4 <- recode.multiple(introversion.data, 
+    columns = c("introversion1", "introversion2", "introversion3", "introversion4", "introversion5"),     from = c("Strongly Disagree","Disagree", "Neutral"," Agree", "Strongly Agree"),
+    to = c("ten", "twenty", "thirty", "forty", "fifty"),
+    fun = function(x){factor(x, levels = c("ten", "twenty", "thirty", "forty", "fifty"))}
+    ) ## note that you need to specify the levels argument or the factor might be ordered against your wishes
+
+introversion.data4
+
+str(introversion.data4) # structure of dataframe
+
+```
+
+
+
+# Collapsing different columns into one
+
+Here's a specific problem which I have encountered multiple times in data management. In this example, the categorical data, race, is split into different columns. For example, if we have 3 categories ("Black or African American", "White", "Asian") but we collected the data through binary options (ie. 1 if White, 0 if not White), we get 3 columns instead of 1 (1 column for each category). This violates the one column for each variable rule of thumb for data analysis. When we want to test for differences between races or other categorical variables arranged in this way, we need to combine them into a single column.  
+
+```{r echo=FALSE}
+race.data <- data.frame(
+  id = 1:7,
+  race_1 = c(NA, "Asian", rep(NA, 5)),
+  race_2 = c(NA, NA, "Black or African American", "Black or African American", rep(NA, 3)), 
+  race_3 = c(NA, NA, NA, NA, "White", "White", "White"), stringsAsFactors = F
+)
+
+race.data
+```
+
+In this example, collapse.category() works wonders to solve the problem as seen below.   
+
+```{r recoding categories, echo=FALSE, warning=FALSE, message=FALSE}
+
+#Here's the function for transparency
+collapse.category <- function(dataframe, return.conflicts = TRUE) {
+  
+
+  ## identifying conflicting columns (NAs non-inclusive)
+  df_temp <- dataframe
+  df_conflicts <- c() ## initialise vector to store conflicts
+  
+  for(i in 1:nrow(df_temp)){
+    
+      df_non_duplicates <- NA # initialise on each row
+      
+      ## remove duplicates from these rows
+      df_non_duplicates <- df_temp[i , ][!duplicated(t(df_temp[i , ]))]
+      ## remove missing data
+      df_non_duplicates <- df_non_duplicates[!is.na(df_non_duplicates)]
+      
+      ## are there conflicting values???
+      if (length(df_non_duplicates) > 1){ ## assuming there are no conflicts, this length should be 1
+        
+        df_conflicts <- c(df_conflicts, i)
+        
+      } else {
+        
+        NULL
+      }
+      
+      
+  }
+  
+  #print(df_conflicts)
+  
+  ## reports if there are conflicts
+  if (length(df_conflicts) > 0){
+    print("WARNING: There are non-NA conflicts in the category columns")
+    
+  } else {
+    
+    print("CONGRATS: There are no conflicts in the category columns")
+  }
+  
+  result <- rep(NA, nrow(dataframe))
+  
+  #For each specified category column
+    for (i in 1:nrow(dataframe)){
+      for (j in 1:ncol(dataframe)){
+      #if the row of the specified column is not missing
+      if(!is.na(dataframe[i,j])){
+        #then slot that value into the new column
+       result[i] <- dataframe[i,j]
+      } else {
+        #otherwise leave as it is (NA)
+        NULL
+      }
+      
+    }
+    }
+  
+  if (length(df_conflicts) > 0 & return.conflicts==TRUE){
+    
+    print("returning LIST of conflicts. Output object CANNOT be new column of dataframe")
+    conflict.dataframe = dataframe[df_conflicts, ]
+    conflict.dataframe$conflict.rows <- df_conflicts
+    
+    return(list(result = result, conflict.dataframe = conflict.dataframe))
+    
+  } else {
+  return(result)
+  }
+
+}
+
+```
+
+
+```{r message=TRUE}
+
+# Creating a vector for the race variable names
+# You don't have to do this but i find this neater
+race_columns <- c("race_1", "race_2", "race_3")
+
+# Using the function 
+race.data$race_label <- collapse.category(race.data[, race_columns]) 
+
+race.data
+```
+
+One major issue occurs when there are columns with conflicting information. For example, if you are trying to collapse demographic variables measured at 2 timepoints, a participant might mistakenly indicate "white" at one timepoint and "asian" at another timepoint as seen in **race.data**. Note participants **3** and **7** (use the arrows to navigate through the dataset if your screen isn't wide enough).
+
+```{r echo=FALSE}
+race.data2 <- data.frame(
+  id = 1:7,
+  race_1_t1 = c(NA, "Asian", rep(NA, 5)),
+  race_1_t2 = c(NA, "Asian", rep(NA, 4), "Asian"),
+  race_2_t1 = c(NA, NA, "Black or African American", "Black or African American", rep(NA, 3)), 
+  race_2_t2 = c(NA, NA, NA, "Black or African American", rep(NA, 3)), 
+  race_3_t1 = c(NA, NA, NA, NA, "White", "White", "White"),
+  race_3_t2 = c(NA, NA, "White", NA, "White", "White", NA),
+  stringsAsFactors = F
+)
+
+# see id 3 and id 7
+race.data2
+```
+
+In this case, the function does a few things differently. First, it would resolve the conflicts using the **last** columns (in this case the second timepoint).  
+
+Secondly, the function helpfully returns a subsetted dataframe with the conflicting rows. This lets you check if the conflicts match your expectations. If you don't wish for this to happen, you can set the default argument of return.conflicts to FALSE.  
+
+```{r message=TRUE}
+
+#Creating a vector for the race variables
+#You don't have to do this but i find this neater
+race_columns <- c("race_1_t1",  "race_1_t2","race_2_t1", "race_2_t2", "race_3_t1", "race_3_t2")
+
+#Using the function
+check.conflict <- collapse.category(race.data2[, race_columns]) 
+
+check.conflict
+
+check.conflict$conflict.dataframe$conflict.rows # row numbers of rows with conflicts
+```
+
+See that the code warns you about conflicting columns and also informs you that it likes to return a **list** to show you the conflicts. Thus, if you tried running the code to create a new column in your dataset as in the previous example (ie. race.data$race_labels), the code will return an error.  
+
+The code also returns useful information to help you actively deal with conflicting information. It extracts the conflicting rows out for you so you can identify the problem AND it creates a new column (conflict.rows) to help you identify the conflicting row numbers.  
+
+While usually not ideal, there are times when you are fine with resolving the conflicts based on some column. In this situation, you can specify the **return.conflicts** as FALSE. This forcefully resolves the conflicts to the later columns (so order of the columns matter).  
+
+```{r message=TRUE}
+
+#Creating a vector for the race variables
+#You don't have to do this but i find this neater
+race_columns <- c("race_1_t1",  "race_1_t2","race_2_t1", "race_2_t2", "race_3_t1", "race_3_t2") 
+## NOTE: the conflicts will now be resolved based on the later columns. So race_3 inputs will be prioritised over
+## race_2 inputs and race_2 inputs will be prioritised over race_1 inputs
+## Conceptually, this doesn't make sense so make sure that if you are using this, the conflicts are 
+## resolved according to some meaningful reason
+
+#Now the race.data2$race.label can be used as the reference
+race.data2$race.label <- collapse.category(race.data2[, race_columns], return.conflicts = F) 
+
+race.data2
+```
+
+Here's the code for reference. Remember to run this first before using the function as it is not a given function in basic R.
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+#Here's the function for transparency
+collapse.category <- function(dataframe, return.conflicts = TRUE) {
+  
+
+  ## identifying conflicting columns (NAs non-inclusive)
+  df_temp <- dataframe
+  df_conflicts <- c() ## initialise vector to store conflicts
+  
+  for(i in 1:nrow(df_temp)){
+    
+      df_non_duplicates <- NA # initialise on each row
+      
+      ## remove duplicates from these rows
+      df_non_duplicates <- df_temp[i , ][!duplicated(t(df_temp[i , ]))]
+      ## remove missing data
+      df_non_duplicates <- df_non_duplicates[!is.na(df_non_duplicates)]
+      
+      ## are there conflicting values???
+      if (length(df_non_duplicates) > 1){ ## assuming there are no conflicts, this length should be 1
+        
+        df_conflicts <- c(df_conflicts, i)
+        
+      } else {
+        
+        NULL
+      }
+      
+      
+  }
+  
+  #print(df_conflicts)
+  
+  ## reports if there are conflicts
+  if (length(df_conflicts) > 0){
+    print("WARNING: There are non-NA conflicts in the category columns")
+    
+  } else {
+    
+    print("CONGRATS: There are no conflicts in the category columns")
+  }
+  
+  result <- rep(NA, nrow(dataframe))
+  
+  #For each specified category column
+    for (i in 1:nrow(dataframe)){
+      for (j in 1:ncol(dataframe)){
+      #if the row of the specified column is not missing
+      if(!is.na(dataframe[i,j])){
+        #then slot that value into the new column
+       result[i] <- dataframe[i,j]
+      } else {
+        #otherwise leave as it is (NA)
+        NULL
+      }
+      
+    }
+    }
+  
+  if (length(df_conflicts) > 0 & return.conflicts==TRUE){
+    
+    print("returning LIST of conflicts. Output object CANNOT be new column of dataframe")
+    conflict.dataframe = dataframe[df_conflicts, ]
+    conflict.dataframe$conflict.rows <- df_conflicts
+    
+    return(list(result = result, conflict.dataframe = conflict.dataframe))
+    
+  } else {
+  return(result)
+  }
+
+}
+
+```
