@@ -26,7 +26,9 @@
       {{ if isset .Params "author" }}
       <span class = "author"> by {{ .Params.Author }} </span>  <br>
       {{ end }} 
-      <span class = "summary"> {{ .Summary }} </span> <br>
+      {{ if isset .Params "summary" }}
+      <span class = "summary"> {{ .Summary }} </span> 
+      {{ end }} <br>
       <div style="color:grey; font-size:16px;">
         {{ if .Params.topics }}<strong>Topics:</strong> 
         {{range .Params.topics}}<a href="{{ "/topics/" | relLangURL }}{{ . | urlize }}">{{ . }}</a> 
