@@ -4,7 +4,8 @@
 
   <article class="article">
     {{ if eq .Section "post" }}
-    <span class="article-duration">{{ math.Floor div .ReadingTime 2.5 }} min read</span>
+    <span class="article-duration">{{ math.Floor {{ div .ReadingTime 2.5 }} }} min read</span>
+    {{ end }}
     {{ end }}
 
     <h1 class="article-title">{{ .Title }}</h1>
