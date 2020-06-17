@@ -4,7 +4,7 @@ title = "MSR Code Library"
 theme = "hugo-lithium"
 googleAnalytics = ""
 disqusShortname = ""
-ignoreFiles = ["_cache$"]
+ignoreFiles = ["_files$", "_cache$"]
 
 [permalinks]
     post = "/:year/:month/:day/:slug/"
