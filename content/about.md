@@ -38,6 +38,6 @@ This tags your post with meaningful labels and also allow our audience to find r
 
 1. Good Practices for Sharing Code
     1. Describe clearly what your code does and why it is useful.
-    1. Provide a Minimal Working Example! Present a simple and clear illustration of what your code does and how to use it.
+    1. Provide a Minimal Working Example! Present a simple and clear demonstration of your code in action.
     1. Comment your code! Some audience might be less familiar with your coding language and would greatly benefit from a well annotated set of code.
 
