@@ -1,0 +1,46 @@
+---
+title: "Checking Observation Function"
+author: "Daniel Foo"
+date: "6/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is a function that helps you check all the unique observations within a particular variable in a dataframe and it returns you the total count of each observation. This function returns you a dataframe with observation and counts. 
+
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+check_observation <- function (df, column, sort = FALSE) {
+  #requires tidyverse package
+  require (tidyverse)
+  
+  check <- df %>% 
+    group_by (as.vector(unlist(df[, column]))) %>% 
+    count () %>% 
+    rename (observations = "as.vector(unlist(df[, column]))")
+  
+  print (check$observations)
+  return (check)
+  
+} 
+
+```
+df: Name of the dataframe 
+column: Name of the variable interested (Note: Has to be enclosed with "")
+
+
+
+Here is an example: 
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Using a build in dataset as an exampple 
+data (iris)
+
+#In this case I want to find out all the different species in this dataset as well as the total count for eaxh species 
+check_observation (iris, "Species")
+
+```
+
