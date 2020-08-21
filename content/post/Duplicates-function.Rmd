@@ -1,16 +1,3 @@
----
-title: "Duplicates-function"
-author: "Don Pereira"
-date: "8/3/2020"
-output:
-  html_document:
-    number_sections: no
-    theme: united
-    toc: yes
-    toc_depth: '3'
-    toc_float: yes
----
-
 The purpose of Identify_Duplicates() is to identify duplicates in a dataset based on a key identifier and remove them based on two criterias: survey completion rate and temporal precedence of the duplicates.
 
 Using these two criterias, the function keeps the most complete survey, but where participants complete the survey to the same extent, the function keeps the earlier entry.
