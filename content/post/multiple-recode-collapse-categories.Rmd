@@ -11,7 +11,8 @@ output:
   html_document:
     df_print: paged
     number_sections: yes
-    theme: united
+    theme: readable
+    highlight: tango
 fontsize: 16pt
 ---
 
@@ -151,7 +152,7 @@ collapse.category <- function(dataframe, return.conflicts = TRUE) {
       df_non_duplicates <- NA # initialise on each row
       
       ## remove duplicates from these rows
-      df_non_duplicates <- df_temp[i , ][!duplicated(t(df_temp[i , ]))]
+      df_non_duplicates <- df_temp[i , ][as.vector(!duplicated(t(df_temp[i , ])))]
       ## remove missing data
       df_non_duplicates <- df_non_duplicates[!is.na(df_non_duplicates)]
       
@@ -210,19 +211,6 @@ collapse.category <- function(dataframe, return.conflicts = TRUE) {
 
 }
 
-```
-
-
-```{r message=TRUE}
-
-# Creating a vector for the race variable names
-# You don't have to do this but i find this neater
-race_columns <- c("race_1", "race_2", "race_3")
-
-# Using the function 
-race.data$race_label <- collapse.category(race.data[, race_columns]) 
-
-race.data
 ```
 
 One major issue occurs when there are columns with conflicting information. For example, if you are trying to collapse demographic variables measured at 2 timepoints, a participant might mistakenly indicate "white" at one timepoint and "asian" at another timepoint as seen in **race.data**. Note participants **3** and **7** (use the arrows to navigate through the dataset if your screen isn't wide enough).
@@ -300,7 +288,7 @@ collapse.category <- function(dataframe, return.conflicts = TRUE) {
       df_non_duplicates <- NA # initialise on each row
       
       ## remove duplicates from these rows
-      df_non_duplicates <- df_temp[i , ][!duplicated(t(df_temp[i , ]))]
+      df_non_duplicates <- df_temp[i , ][as.vector(!duplicated(t(df_temp[i , ])))]
       ## remove missing data
       df_non_duplicates <- df_non_duplicates[!is.na(df_non_duplicates)]
       

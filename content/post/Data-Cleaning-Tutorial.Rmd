@@ -11,7 +11,8 @@ output:
   html_document:
     df_print: paged
     number_sections: yes
-    theme: united
+    theme: readable
+    highlight: tango
     toc: yes
     toc_depth: 3
     toc_float: true
@@ -665,7 +666,7 @@ collapse.category <- function(dataframe, return.conflicts = TRUE) {
       df_non_duplicates <- NA # initialise on each row
       
       ## remove duplicates from these rows
-      df_non_duplicates <- df_temp[i , ][!duplicated(t(df_temp[i , ]))]
+      df_non_duplicates <- df_temp[i , ][as.vector(!duplicated(t(df_temp[i , ])))]
       ## remove missing data
       df_non_duplicates <- df_non_duplicates[!is.na(df_non_duplicates)]
       
