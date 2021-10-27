@@ -42,5 +42,5 @@ This tags your post with meaningful labels and also allow our audience to find r
     1. Comment your code! Some audience might be less familiar with your coding language and would greatly benefit from a well annotated set of code.
 
 1. For Code with Incomplete Documentation  
-If you wrote something useful but do not have time to properly document your code, please still feel free to share it! However, we recommend adding a disclaimer tag, "__Incomplete__" to warn users with less experience in R who might not know how to use your code without more elaborate instructions. 
+If you wrote something useful but do not have time to properly document your code, please still feel free to share it! However, we recommend adding a disclaimer tag, "__Incomplete__", to warn users with less experience in R who might not know how to use your code without more elaborate instructions. 
 Furthermore, if you are open to letting others help take on the task of completing your work, you can leave a comment in your post to encourage others to edit your files.
