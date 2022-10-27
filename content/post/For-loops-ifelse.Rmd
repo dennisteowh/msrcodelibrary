@@ -900,11 +900,11 @@ for (i in 1:3){
 }
 ```
 
-The logic is a simple extension of a single **for loop**. The first loop (or outer loop) iterates on i from 1 to 3. On each iteration, the second loop (or inner loop) runs and iterates on j from "a" to "c". Hence, the first 3 outputs are "1a", "1b", and "1c" which takes place within the first iteration of the outer loop.  
+The logic is a simple extension of a single **for loop**. The first loop (or outer loop) iterates on i from 1 to 3. On each iteration, the second loop (or inner loop) runs and iterates on j from "a" to "c". Hence, the first 3 outputs are "1 a", "1 b", and "1 c" which takes place within the first iteration of the outer loop.  
 
 It is worth noting that nesting **for loops** can be computationally expensive. We are essentially iterating over all possible permutations of both loops. In this case, we iterate over 3 elements in both loops. That surmounts to 3x3=9 iterations. If you are iterating over longer sequences (say a 1000 elements), that would surmount to 1000x1000 iterations. Nesting a third or fourth loop will be even more expensive (that said, modern day computers are really powerful so it is still feasible to use nested for loops).  
 
-Even though nested for loops are a mere extension of for loops, it significantly increases your capabilities to solve complex problems. However, it can also be confusing to conceptualize the nesting so it is important you try to practice this on your own. In the next section, I share a challenge where you can test out your new skills in R programming.  
+Even though nested for loops are a mere extension of for loops, it significantly increases your capabilities to solve complex problems (sadly, I am not illustrating this here). However, it can also be confusing to conceptualize the nestings so it is important you try to practice this on your own. In the next section, I share a challenge where you can test out your new skills in R programming (and the post also shares an answer that uses nested for loops).  
 
 
 # challenge yourself on an actual problem
