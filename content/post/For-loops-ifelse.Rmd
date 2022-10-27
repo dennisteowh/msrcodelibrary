@@ -12,6 +12,7 @@ output:
     df_print: paged
     number_sections: yes
     theme: united
+    highlight: tango
     toc: yes
     toc_depth: 3
     toc_float: true
@@ -28,9 +29,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 p {line-height:2em;} 
 </style>
 
-To advance your core skills in R (or any programming language), you need to have a good grasp of **for loops** and **if else statements**. These 2 functions do a lot of heavy lifting in many of the functions you used before. Once learned, you will definitely expand your ability to solve novel coding problems in R.  
+To advance your core skills in R (or any programming language), you need to have a good grasp of **for loops** and **if else statements**. These two functions do a lot of heavy lifting in many of the functions you used before. Once learned, you will definitely expand your ability to solve novel coding problems in R.  
 
-Because of their utility, a quick Google search will yield you many existing tutorials on these functions. That said, I will include my own version ofa tutorial for these functions. I have taught these functions before and people often pick up misconceptions on how these functions work. In this tutorial, I will attempt to slowly teach the mechanics of these functions and how they work. This is tutorial is mainly aimed at people with little to no coding background where the slow pace of teaching is important.  
+Because of their utility, a quick Google search will yield you many existing tutorials on these functions. That said, I will include my own version of a tutorial for these functions. I have taught these functions before and people often pick up misconceptions on how these functions work. In this tutorial, I will attempt to slowly teach the mechanics of these functions and how they work. This tutorial is mainly aimed at people with little to no coding background where the slow pace of teaching is important.  
 
 # for loops
 
@@ -38,11 +39,16 @@ A **for loop** is an iterative function. The basis is that it takes some code an
 
 ```{r}
 
-over.the.fence <- c() # creating an empty vector
+over.the.fence <- c() # creates an empty vector
 
-over.the.fence <- c("sheep", over.the.fence) # adding a sheep to the empty vector
+over.the.fence <- c("sheep", over.the.fence) # add a sheep to the empty vector
 
 print(paste(length(over.the.fence), "sheep over the fence")) # counting number of sheep
+
+# Note:
+# length() computes the number of elements in a vector
+# paste() combines its inputs into a single character object
+# print() prints out the result for us to view
 
 ```
 
@@ -50,18 +56,18 @@ As you can see, this code simply adds a sheep into the object, **over.the.fence*
 
 ```{r}
 
-over.the.fence <- c("sheep", over.the.fence) # adding a sheep to the empty vector
+over.the.fence <- c("sheep", over.the.fence) # adding a sheep to the vector
 
 print(paste(length(over.the.fence), "sheep over the fence")) # counting number of sheep
 
-over.the.fence <- c("sheep", over.the.fence) # adding a sheep to the empty vector
+over.the.fence <- c("sheep", over.the.fence) # adding a sheep to the vector
 
 print(paste(length(over.the.fence), "sheep over the fence")) # counting number of sheep
 
 over.the.fence # our final object
 ```
 
-Observe that I did not repeat the first line of code which **initialises** the empty object. If I repeated that, we will always have one sheep.  
+Observe that I did not repeat the first line of code which **initializes** the empty object. If I repeated that, we will always have only one sheep since we keep emptying the vector before adding in a sheep.  
 
 ```{r}
 over.the.fence <- c() # creating an empty vector
@@ -80,11 +86,11 @@ over.the.fence # our final object
 
 ```
 
-The above code essentially captures the logic of a **for loop**. We take a certain code (aka body of a function) and repeat it a number of times (in this case, 3 times). Often, we want to store our output into an object (over.the.fence). To do so, we need to initialise the object first (creating an empty vector). On each iteration, we modify this object (adding one sheep at a time) to eventually get the output that we want (3 sheep).    
+The above code essentially captures the logic of a **for loop**. We take a certain code (aka body of a function) and repeat it a number of times (in this case, 3 times). Often, we want to store our output into an object (over.the.fence). To do so, we need to initialize the object first (creating an empty vector). On each iteration, we modify this object (adding one sheep at a time) to eventually get the output that we want (3 sheep).    
 
 Hopefully, you find this logic of iteration relatively straightforward. As we will see later and other examples throughout this tutorial, iteration can help us solve many problems. One issue of iteration, however, is that it is tedious. If I wanted to count 100 sheep using this method, I have to copy/paste my code 100 times. This is where a **for loop** becomes useful.  
 
-Here is the template of how a for loop tends to look like. You begin with the **for()** function to begin the for loop. Next you specify the the number of times you wish to iterate the function (i in 1:N) where N is the number of times you want to repeat the function. We will talk more about how this works later. Finally, within the {} brackets, you add the function you wish to iterate. Remember to close the bracket or your for loop will not run. (R helpfully does this for you but it is good to double-check as a habit).  
+Here is the template of how a **for loop** tends to look like. You begin with the **for()** function to begin the for loop. Next you specify the the number of times you wish to iterate the function using **(i in 1:N)** where N is the number of times you want to repeat the function. We will talk more about how this works later. Finally, within the {} brackets, you add the function you wish to iterate. Remember to close the bracket or your for loop will not run. (R helpfully does this for you but it is good to double-check as a habit).  
 
 ```{r eval = F, echo = T}
 
@@ -105,7 +111,7 @@ over.the.fence <- c() # creating an empty vector
 
 for (i in 1:10){ # repeat 10 times
 
-over.the.fence <- c("sheep", over.the.fence) # adding a sheep to the empty vector
+over.the.fence <- c("sheep", over.the.fence) # adding a sheep to the vector
 
 print(paste(length(over.the.fence), "sheep over the fence")) # counting number of sheep
 
@@ -115,7 +121,9 @@ over.the.fence # our final object
 
 ```
 
-See that the pattern of the code follows the logic I described before. First, we initialise the object **outside** the **for loop**. This creates an object to store our herd of sheep. Then, we start the **for loop** to only repeat the code which adds sheep to our object. We replace N with 10 because we want to iterate our code 10 times to get 10 sheep over the fence.  
+See that the pattern of the code follows the logic I described before. First, we initialize the object **outside** the **for loop**. This creates an object to store our herd of sheep. Then, we start the **for loop** to only repeat the code which adds sheep to our object. We replace N with 10 because we want to iterate our code 10 times to get 10 sheep over the fence.  
+
+Initializing the object outside the for loop is important because if it is inside the for loop, it will be repeated as well. This is similar to the example I showed earlier where our sheep counts never increase because we keep emptying the vector we are adding sheep to.  
 
 Okay. Let's get to the question some of you might be asking. What is **i**? Well, let's ask R what **i** is.
 
@@ -165,7 +173,7 @@ introversion.data <- data.frame(id = 1:10,
 introversion.data
 ```
 
-Say, we wish to compute a composite score of introversion (via summation) using the **for loop**. 
+Say, we wish to compute a aggregate score of introversion (via summation) using the **for loop**.  
 
 ```{r}
 nrow(introversion.data) # this gives us the number of rows in our dataset
@@ -174,7 +182,7 @@ introversion.items <- c("introversion1", "introversion2", "introversion3", "intr
 
 introversion.items # the names of our introversion items for aesthetic purposes
 
-introversion.data$introversion.sum <- NA # initialising new column
+introversion.data$introversion.sum <- NA # initializing new column
 
 for (i in 1:nrow(introversion.data)){ # for each row of the dataset
   
@@ -188,13 +196,13 @@ introversion.data$introversion.sum # showing the new computed variable only
 
 ```
 
-Again, this follows the basic logic of iteration. First, we intialise an empty column which will house our computed scores later. It is good practice to initialise this column with NA.  
+Again, this follows the basic logic of iteration. First, we initialize an empty column which will house our computed scores later. It is good practice to initialize this column with NA.  
 
-Next, we begin our **for loop**. The code we want to iterate is the summing of the introversion item scores for each participant. With the **i**, we can accomplish this (try running the code without the **i** to see what happens). Observe that the **i** (counter for the loop) reflects each row of the dataset. On the first iteration, the **i** is 1 and it computes the sum for the first row of the dataset. On the second iteration, **i** is 2 and it computes the sum for the second row of the dataset. It does so until it reaches the total number of rows in the dataset (we use **nrow()** to specify this).  
+Next, we begin our **for loop**. The code we want to iterate is the summing of the introversion item scores for each participant. With the **i**, we can accomplish this. Observe that the **i** (counter for the loop) reflects each row of the dataset. On the first iteration, the **i** is 1 and it computes the sum for the first row of the dataset. On the second iteration, **i** is 2 and it computes the sum for the second row of the dataset. It does so until it reaches the total number of rows in the dataset (we use **nrow()** to specify this).  
 
 Let's learn one last thing about the **for loop** before moving onto **if else statements**.  
 
-When specifying the number of iterations, we tend to use (i in 1:N) as the default template. This is because it is intuitive and easy to keep track of the number of iterations using this method. we can even match the number of iterations to meaningful things like the number of rows in the dataset or the number of items in a vector (using the **length()** function).  
+When specifying the number of iterations, we tend to use **(i in 1:N)** as the default template. This is because it is intuitive and easy to keep track of the number of iterations using this method. We can even match the number of iterations to meaningful things like the number of rows in the dataset or the number of items in a vector (using the **length()** function).  
 
 However, the **for loop** actually reads 1:N as a vector.  
 
@@ -238,7 +246,7 @@ compute.these.participants # vector which has the rows we want to compute
 
 introversion.items # the names of our introversion items 
 
-introversion.data$introversion.sum <- NA # initialising new column
+introversion.data$introversion.sum <- NA # initializing new column
 
 for(i in compute.these.participants){ # iterate across only the rows that we want
   
@@ -252,19 +260,18 @@ introversion.data$introversion.sum # showing the new computed variable only
 
 ```
 
-If we combine our knowledge of logical statements, we can further expand our capabilities with the for loop. Let's say we wish to only compute this composite for participants who scored at least a 2 on introversion item 1. We can use **which()** to find out which rows correspond to these participants and run the **for loop** on these participants only.  
+If we combine our knowledge of logical statements, we can further expand our capabilities with the for loop. Let's say we wish to only compute this aggregate score for participants who scored at least a 2 on introversion item 1. We can use **which()** to find out which rows correspond to these participants and run the **for loop** on these participants only.  
 
 ```{r}
+which(c(TRUE, FALSE, TRUE, FALSE, TRUE)) # which() lets you find out the indexes of TRUE values 
 
-which(introversion.data$introversion1 > 2) # see that which() lets you find out the indexes of the TRUE values which then correspond to the row numbers of these participants
+which(introversion.data$introversion1 > 2) # this allows us to find the row numbers of participants with introversion1 score greater than 2
 
-compute.these.participants <- which(introversion.data$introversion1 > 1)
-
-compute.these.participants # vector which has the rows we want to compute
+compute.these.participants <- which(introversion.data$introversion1 > 2) # let's save this into an object
 
 introversion.items # the names of our introversion items for aesthetic purposes
 
-introversion.data$introversion.sum <- NA # initialising new column
+introversion.data$introversion.sum <- NA # initializing new column
 
 for(i in compute.these.participants){ # iterate across only the rows that we want
   
@@ -339,7 +346,7 @@ if (p < .05) { # condition 1 - p less than .05
 
 ```
 
-Here, we have a case of an invalid input where the value of p (-1) is theoretically impossible. However, the **if else statement** still returns an interpretable response because p = -1 is still less than .05.  
+Here, we have a case of an invalid input where the value of p is theoretically impossible (since p is a probability). However, the **if else statement** still returns an interpretable response because p = -1 is still less than .05.  
 
 To handle invalid inputs, we need to add more conditions to our **if else statement**. To do so, we use the extension **else if**.  
 
@@ -470,7 +477,7 @@ if (p > 1 | p < 0){ # condition 1 - p more than 1 OR p less than 0
 
 ```
 
-As you might have noticed, we leave the body of the last condition (the else condition) blank by writing NULL. We can use **NULL** to skip certain conditions we don't wish to perform any function.   
+As you might have noticed, we leave the body of the last condition (the else condition) blank by writing NULL. What makes **NULL** useful is that we can use it to skip certain conditions where we don't wish to perform any function.  
 
 ```{r}
 
@@ -478,7 +485,7 @@ p <- 1.5
 
 if (p > 1 | p < 0){
    
-  NULL # return NULL
+  NULL # this is skipper
 
   } else if (p < .001) { 
   
@@ -488,11 +495,11 @@ if (p > 1 | p < 0){
     
     print (paste("p =", round(p , 2))) 
     
-  } else { 
-  
-  NULL # return NULL
-  
-}
+  } else {
+    
+    NULL
+    
+  }
 
 ```
 
@@ -518,9 +525,9 @@ count <- 10
 
 if (is.numeric(count) & count > 0) { # if input is a number and greater than 0
   
-  count <- count - 1
+  count <- count - 1 # subtract 1 from count
   
-} else if (is.numeric(count) & count == 0) {
+} else if (is.numeric(count) & count == 0) { # else if input is number and equals to 0
   
   print(paste("Countdown is Complete!")) # print message 
   
@@ -536,9 +543,9 @@ count <- 0
 
 if (is.numeric(count) & count > 0) { # if input is a number and greater than 0
   
-  count <- count - 1
+  count <- count - 1 # subtract 1 from count
   
-} else if (is.numeric(count) & count == 0) {
+} else if (is.numeric(count) & count == 0) { # else if input is number and equals to 0
   
   print(paste("Countdown is Complete!")) # print message 
   
@@ -548,10 +555,9 @@ count
 
 ```
 
-
 # combining for loops and if else statements
 
-**for loops** and **if else statements** are both useful in their own right. However, they become especially powerful when used in conjunction. Many data cleaning problems can be creatively solved by using these together. Here, I will only give a short illustration of how this can be done. However, to really grasp the flexibility of these tools, you are encouraged to use them to solve your own problems. You can also refer to other examples throughout this tutorial which solved data management problems using these concepts.  
+**for loops** and **if else statements** are both useful in their own right. However, they become especially powerful when used in conjunction. Many data cleaning problems can be creatively solved by using these together. Here, I will only give a short illustration of how this can be done. However, to really grasp the flexibility of these tools, you are highly encouraged to use them to solve your own problems.  
 
 I will share two examples employing these 2 concepts. One involving vectors and one involving dataframes.  
 
@@ -561,21 +567,21 @@ For this example, we will go back to our sheep counting problem. This time, we h
 
 ```{r}
 
-set.seed(100)
+set.seed(100) # seed to ensure our "random" draws are fixed 
 
-sheep.herd <- sample(c("white sheep", "black sheep", "bald sheep"), 100, replace = T) # randomly draw 100 sheep
+sheep.herd <- sample(c("white sheep", "black sheep", "bald sheep"), 100, replace = T) # randomly draw 100 sheep with replacement
 
 sheep.herd # our herd
 
 ```
 
-Now, we want to count the number of white sheep, black sheep, and bald sheep in this herd. To do so, we can use a **for loop** to iterate through this herd, sheep by sheep, and counting the white sheep using an **if else statement**.    
+Now, we want to count the number of white sheep, black sheep, and bald sheep in this herd. To do so, we can use a **for loop** to iterate through this herd, sheep by sheep, keeping count of each type of sheep using an **if else statement**.    
 
 ```{r}
 
-white.sheep.count <- 0 # initialise counter for white sheep
-black.sheep.count <- 0  # initialise counter for black sheep
-bald.sheep.count <- 0  # initialise counter for bald sheep
+white.sheep.count <- 0 # initialize counter for white sheep
+black.sheep.count <- 0  # initialize counter for black sheep
+bald.sheep.count <- 0  # initialize counter for bald sheep
 
 for (i in 1:length(sheep.herd)){ # for each sheep in a given herd
   
@@ -591,11 +597,7 @@ for (i in 1:length(sheep.herd)){ # for each sheep in a given herd
     
   bald.sheep.count <-  bald.sheep.count + 1 # add 1 to bald sheep counter
     
-  } else { # skip input that did not fall in any of the 3 kinds of sheep
-    
-    NULL
-    
-  }
+  } 
   
 }
   
@@ -607,15 +609,15 @@ bald.sheep.count # number of bald sheep
 
 ```
 
-First, we initialised a counter for each kind of sheep (starting at 0 sheep). Next, we iterated through the herd using a **for loop**. One by one, the **if else statement** checks for the kind of sheep. If it is a white sheep, we increase the count of white.sheep.count by 1. If it is a black sheep, we increase the count of black.sheep.count by 1 and so on.  
+First, we initialized a counter for each kind of sheep (starting at 0 sheep). Next, we iterated through the herd using a **for loop**. One by one, the **if else statement** checks for the kind of sheep. If it is a white sheep, we increase the count of white.sheep.count by 1. If it is a black sheep, we increase the count of black.sheep.count by 1 and so on.  
 
-I left the **else** condition intentionally blank using NULL. Note that I could have written it such that there are only 2 conditions (white sheep and black sheep) and count the bald sheep after the **else** condition, like so.  
+I omitted the **else** condition. Note that I could have written it such that there are only 2 conditions (white sheep and black sheep) and count the bald sheep after the **else** condition, like so.  
 
 ```{r}
 
-white.sheep.count <- 0 # initialise counter for white sheep
-black.sheep.count <- 0 # initialise counter for black sheep
-bald.sheep.count <- 0 # initialise counter for bald sheep
+white.sheep.count <- 0 # initialize counter for white sheep
+black.sheep.count <- 0 # initialize counter for black sheep
+bald.sheep.count <- 0 # initialize counter for bald sheep
 
 for (i in 1:length(sheep.herd)){ # for each sheep in a given herd
   
@@ -643,7 +645,7 @@ bald.sheep.count # number of supposed bald sheep (all other entries are counted 
 
 ```
 
-While this yielded the correct counts, note that it is prone to error. If an input value wasn't "bald sheep", the code would still add a count to bald.sheep.count. Again, this highlights the potential pitfall of the **else** statement. My recommendation is that you explicitly write out all conditions using ifs and else ifs as a default way of writing **if else statements**. Use the else statment to handle cases which you might have missed. I illustrate this point more clearly below.  
+While this yielded the correct counts, note that it is prone to error. If an input value wasn't "bald sheep", the code would still add a count to bald.sheep.count. This highlights the potential pitfall of the **else** statement. My recommendation is that you explicitly write out all conditions using ifs and else ifs as a default way of writing **if else statements**. Use the else statment to handle cases which you might have missed. I illustrate this point more clearly below.  
 
 ```{r}
 
@@ -661,7 +663,7 @@ white.sheep.count <- 0
 black.sheep.count <- 0
 bald.sheep.count <- 0
 
-others <- 0 # initialise counter for all other entries
+others <- 0 # initialize counter for all other entries
 
 for (i in 1:length(sheep.herd)){ 
   
@@ -698,15 +700,15 @@ others # number of non-sheep entries
 
 ## example involving dataframes
 
-Here, we will go back to our previous example of computing a composite score of introversion items. This time, however, I added an attention check column which represents whether participants carefully read the introversion items or not. (FALSE in cases where participants did not pay attention). Let's compute a composite score in cases where the attention check was met, leaving all other cases as NA. Of course, using **for loops** and **if else statements**.  
+Here, we will go back to our previous example of computing the aggregate score of introversion items. This time, however, I added an attention check column which represents whether participants carefully read the introversion items or not. (FALSE in cases where participants did not pay attention). Let's compute an aggregate score in cases where the attention check was met, leaving all other cases as NA. Of course, using **for loops** and **if else statements**.  
 
 ```{r echo = F}
 
 introversion.items # the names of our introversion items for aesthetic purposes
 
-introversion.data <- introversion.data[-7]
+introversion.data <- introversion.data[-7] # remove the aggregate column we computed earlier
 
-introversion.data$attention.check <- sample(c(T, F), nrow(introversion.data), replace = T)
+introversion.data$attention.check <- sample(c(T, F), nrow(introversion.data), replace = T) # adding attention check
 
 introversion.data
 
@@ -714,7 +716,7 @@ introversion.data
 
 ```{r}
 
-introversion.data$introversion.sum <- NA # initialise output column
+introversion.data$introversion.sum <- NA # initialize output column
 
 for (i in 1:nrow(introversion.data)){ # for each row in dataset
   
@@ -722,11 +724,7 @@ for (i in 1:nrow(introversion.data)){ # for each row in dataset
     
     introversion.data[i, "introversion.sum"] <- sum(introversion.data[i, introversion.items]) # compute sum
      
-  } else {
-    
-    NULL
-  }
-  
+  } 
   
 }
 
@@ -735,7 +733,7 @@ introversion.data # show dataset
 
 ```
 
-We first initialise the output column (as NAs). Then, we iterate across the rows of the dataframe. On each row, we check if attention.check is TRUE. If it is, we compute the sum of the introversion items and store it in the output column (introversion.sum). Otherwise, we do nothing (NULL).  
+We first initialize the output column (as NAs). Then, we iterate across the rows of the dataframe. On each row, we check if attention.check is TRUE. If it is, we compute the sum of the introversion items and store it in the output column (introversion.sum).  
 
 
 ## additional tips on using for loops and if else statements together
@@ -809,6 +807,7 @@ for (i in 1:length(list)){ # for each value in list
 }
 
 ```
+
 Notice that the output is slightly different. The loop forcibly ends when you add **break** into the **if else statement**.
 
 ### next 
