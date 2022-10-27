@@ -22,7 +22,7 @@ Along with their responses, you also recorded the time taken for the participant
 
 ---
 
-If you have little experience with for loops and if else statements, please at least attempt to solve this problem on your own. If you know nothing about these functions, you can learn about them here.  
+If you have little experience with for loops and if else statements, please at least attempt to solve this problem on your own. If you know nothing about these functions, you can learn about them [here](https://msrcodelibrary.netlify.app/2020/06/13/for-loops-and-if-else-statements/).  
 
 I share my students' code here to demonstrate different ways of solving the same problem. In that sense, for loops and if else statements are really extensions of our logical problem-solving abilities. All of us, with some hard work, can definitely get to the answer. However, we take different routes to get there since we all think slightly differently from each other. This series of answers also help train your ability to read other people's code which is a highly desirable skill if you wish to advance your training in R.  
 
@@ -53,11 +53,6 @@ df2 <- data.frame(
 df2
 ```
 
-This solution uses the power of the if else statement to compute the average correct response times. It separates the cases into 4 possibilities. If both answers are right, it computes the average time of both answers. If only one answer is right, it takes the time for that answer (this includes 2 possibilities; one for each answer). Lastly, if no answers are right, it leaves the output as NA.  
-
-This is a good example of a code which works but is not generalisable. For most of the problems we encounter in data management, it is okay to do this because at the end of the day, we only want to solve the problems in front of us. However, it is also useful to learn how to make our code more flexible so we can solve a larger range of problems (this is also the basis of abstraction).  
-
-For example, let's say we make the problem abit harder with 3 answers. Then we need to write 8 possibilities into our ifelse statements (all answers right (1p), two answers right (3p), one answer right (3p), no answers right (1p)). Basically, the number of conditions we need to write grows exponentially and becomes infeasible to write very quickly. The original problem which I got from a friend had 15 answers (that's 32768 possibilities). 
 
 ```{r}
 
@@ -88,6 +83,11 @@ df2
 
 ```
 
+This solution uses the power of the if else statement to compute the average correct response times. It separates the cases into 4 possibilities. If both answers are right, it computes the average time of both answers. If only one answer is right, it takes the time for that answer (this includes 2 possibilities; one for each answer). Lastly, if no answers are right, it leaves the output as NA.  
+
+This is a good example of a code which works but is not generalisable. For most of the problems we encounter in data management, it is okay to do this because at the end of the day, we only want to solve the problems in front of us. However, it is also useful to learn how to make our code more general so we can solve a larger range of problems (this is also the basis of abstraction).  
+
+For example, let's say we make the problem a bit harder with 3 answers. Then we need to write 8 possibilities into our ifelse statements (all answers right (1p), two answers right (3p), one answer right (3p), no answers right (1p)). Basically, the number of conditions we need to write grows exponentially and becomes infeasible to write very quickly. The original problem which I got from a friend had 15 answers (that's 32768 possibilities). 
 
 
 # Student A's Attempt
@@ -113,11 +113,6 @@ correct_ans3 <- c("bak chor mee", "cheese", "coconut", "honeydew", "papaya")
 
 ```
 
-Student A's solution captures all the important aspects of the correct solution. See that student A created a temporary column for each question, storing the response time if the answer was correct.  
-
-With the 3 temporary columns (pxtime1, pxtime2, pxtime3), student A computed a final average to get the correct output.  
-
-Most problems that we encounter involve a series of computational steps. While we are often tempted to get the answer right away, it is actually highly recommended that you break down the problem into a smaller series of sub-problems and solve them individually. This is exactly what student A did here.  
 
 ```{r warning=F,message=F}
 
@@ -163,7 +158,14 @@ df
 print.data.frame(df)
 ```
 
-That said, there were some suggestions I gave student A for this code. You can see that student A used a similar looking code 3 different times, one for each question. When you are repeating code like that, that is a good sign to use a for loop whose main purpose is to repeat code.  
+
+Student A's solution captures all the important aspects of the correct solution. See that student A created a temporary column for each question, storing the response time if the answer was correct.  
+
+With the 3 temporary columns (pxtime1, pxtime2, pxtime3), student A computed a final average to get the correct output.  
+
+Most problems that we encounter involve a series of computational steps. While we are often tempted to get the answer right away, it is actually highly recommended that you break down the problem into a smaller series of sub-problems and solve them individually. This is exactly what student A did here.  
+
+That said, there were some suggestions I gave student A for this code. You can see that student A used a similar looking code 3 different times, one for each question. When you are repeating code like that, that is a good sign to use another for loop whose main purpose is to repeat code. Again, imagine that the dataset had 15 answers. Sticking to the student's method, we need to copy paste that code section 15 times to solve the problem.  
 
 # Student B's solution
 
@@ -195,9 +197,6 @@ answer.bank <- c("bank","cat","dog")
 
 ```
 
-The logic of student B's code captures the strength of using for loops. See that student B started by initializing a temporary vector called result when student B started the first for loop (looping through each participant). Student B then started a second for loop to iterate through the answers. Why did student B do this?  
-
-Student B did this so that the result vector would store the response times of the correct answers **for each participant**. After getting the intended response times, student B does another computation to get the average of these response times. Importantly, after each iteration, the loop starts again and **empties** the result vector. Thus, allowing the next round of computation to be done for the next participant.
 
 ```{r}
 
@@ -216,6 +215,11 @@ for(i in 1:nrow(df2)){
 
 df2 
 ```
+
+
+The logic of student B's code captures the strength of using for loops. See that student B started by initializing a temporary vector called result when student B started the first for loop (looping through each participant). Student B then started a second for loop to iterate through the answers. Why did student B do this?  
+
+Student B did this so that the result vector would store the response times of the correct answers **for each participant**. After getting the intended response times, student B does another computation to get the average of these response times. Importantly, after each iteration, the loop starts again and **empties** the result vector. Thus, allowing the next round of computation to be done for the next participant.
 
 
 # Student C Solution
@@ -244,13 +248,6 @@ cake <- data.frame(response_1, time_1, response_2, time_2, response_3, time_3)
 cake
 ```
 
-To help facilitate reading, I modified student C's code abit and added some comments to help you understand what's going on. So first, student C created two vectors to store the response and time column names. Student C did this using the **paste** function (if you don't know what this does Google it!).  
-
-Next, student C iterated through the questions such that response.col and time.col will change on each iteration! On the first iteration of the i loop, response.col and time.col reflects the first answers' column names. When student C starts the second for loop to loop through the participants, student C created a temporary time_temp column to store the correct response times for just this first question. Student C then added this temporary column to another column (total_correct_time). This seems weird but the magic of student C's code haven't started yet.  
-
-On the next iteration of student C's i loop, the response.col and time.col changes to reflect the second answer's column names. Now, when student C adds the temporary column to the total_correct_time column, it updates to reflect the the total time of both iterations. Additionally, a count variable is created to count the number of correct responses so student C can compute a mean later.  
-
-After all 3 iterations was completed, student C then computed the average_correct_time using the total_correct_time and count variables.  
 
 ```{r}
 
@@ -285,6 +282,13 @@ cake
 
 ```
 
+To help facilitate reading, I modified student C's code abit and added some comments to help you understand what's going on. So first, student C created two vectors to store the response and time column names. Student C did this using the **paste** function (if you don't know what this does Google it!).  
+
+Next, student C iterated through the questions such that response.col and time.col will change on each iteration! On the first iteration of the i loop, response.col and time.col reflects the first answers' column names. When student C starts the second for loop to loop through the participants, student C created a temporary time_temp column to store the correct response times for just this first question. Student C then added this temporary column to another column (total_correct_time). This seems weird but the magic of student C's code haven't started yet.  
+
+On the next iteration of student C's i loop, the response.col and time.col changes to reflect the second answer's column names. Now, when student C adds the temporary column to the total_correct_time column, it updates to reflect the the total time of both iterations. Additionally, a count variable is created to count the number of correct responses so student C can compute a mean later.  
+
+After all 3 iterations was completed, student C then computed the average_correct_time using the total_correct_time and count variables.  
 
 
 # Dennis' Solution
@@ -327,14 +331,6 @@ data
 
 ```
 
-I heavily annotated my code for pedagogical reasons. However, I encourage everyone (including myself) to annotate our code as a normal practice. This also makes our lives easier when we return to read/check our old code.  
-
-My solution is kind of a mish mesh of student B's + student C's solution. It follows student B's logic of creating a temporary vector for each participant to compute the final result. On a new participant, this vector gets emptied to compute the result for the next participant.  
-
-However, like student C, my target columns are abstracted. For example, data[i, accuracy [j] ] refers to the ith participant and jth answer. Thus, my code is generalisable to any dataset as long as the accuracy and time vectors match the corresponding column names.  
-
-When creating the dummy dataset, many used an answer, time, answer, time column format which some of my stuents have cleverly exploited. However, exploiting this data structure also means that your code will not be directly applicable to datasets which have different structures. Some of them also hand-specified the column numbers when writing the for loop which is also not scalable to larger datasets. Abstracting the code to use column names allows you to ensure that such concerns will not affect the utility of your code.  
-
 
 ```{r}
 
@@ -374,27 +370,37 @@ data
 ```
 
 
+I heavily annotated my code for pedagogical reasons. However, I encourage everyone (including myself) to annotate our code as a normal practice. This also makes our lives easier when we return to read/check our old code.  
+
+My solution is kind of a mish mesh of student B's + student C's solution. It follows student B's logic of creating a temporary vector for each participant to compute the final result. On a new participant, this vector gets emptied to compute the result for the next participant.  
+
+However, like student C, my target columns are abstracted. For example, data[i, accuracy [j] ] refers to the ith participant and jth answer. Thus, my code is generalisable to any dataset as long as the accuracy and time vectors match the corresponding column names.  
+
+When creating the dummy dataset, many used an answer, time, answer, time column format which some of my stuents have cleverly exploited. However, exploiting this data structure also means that your code will not be directly applicable to datasets which have different structures. Some of them also hand-specified the column numbers when writing the for loop which is also not scalable to larger datasets. Abstracting the code to use column names allows you to ensure that such concerns will not affect the utility of your code.  
+
 Finally, the purpose of creating a dummy dataset is so that you can easily check your code. So be sure to use a few "test cases" to check if your code gave the right answer.
 
 ```{r}
-
-px1.check <- mean(c(17.80775, 23.89103, 24.90232))
+# px1 got 0 questions right
+px1.check <- NA
 
 px1.check
 
 data[1, "average.correct.time"]
 
-px5.check <- NA
+# px3 got 2nd and 4th questions right
+px3.check <- mean(c(28.11666	, 13.647519))
+
+px3.check
+
+data[3, "average.correct.time"]
+
+# px5 got 1st and 4th questions right
+px5.check <- mean(c(29.19206, 19.966314 ))
 
 px5.check
 
 data[5, "average.correct.time"]
-
-px9.check <- mean(c(28.11434 ))
-
-px9.check
-
-data[9, "average.correct.time"]
 
 ```
 
