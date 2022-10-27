@@ -1,4 +1,3 @@
-
 ---
 title: "For Loops and If Else Statements"
 author: "Dennis Teo"
@@ -6,7 +5,6 @@ date: "2020-06-13"
 summary: "For loops and if else statements are core skills in R programming which allow you to solve problems flexibly. This tutorial covers the conceptual basics of how these functions work and demonstrates a few simple examples on how to use them."
 tags: ["Tutorial", "R Core Skills"]
 ---
-
 <!DOCTYPE html>
 
 <html>
@@ -2994,19 +2992,40 @@ want to iterate our code 10 times to get 10 sheep over the fence.</p>
 it is inside the for loop, it will be repeated as well. This is similar
 to the example I showed earlier where our sheep counts never increase
 because we keep emptying the vector we are adding sheep to.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){ <span class="co"># repeat 10 times</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>over.the.fence <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># creating an empty vector</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>over.the.fence <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;sheep&quot;</span>, over.the.fence) <span class="co"># adding a sheep to the vector</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="fu">length</span>(over.the.fence), <span class="st">&quot;sheep over the fence&quot;</span>)) <span class="co"># counting number of sheep</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;1 sheep over the fence&quot;
+## [1] &quot;1 sheep over the fence&quot;
+## [1] &quot;1 sheep over the fence&quot;
+## [1] &quot;1 sheep over the fence&quot;
+## [1] &quot;1 sheep over the fence&quot;
+## [1] &quot;1 sheep over the fence&quot;
+## [1] &quot;1 sheep over the fence&quot;
+## [1] &quot;1 sheep over the fence&quot;
+## [1] &quot;1 sheep over the fence&quot;
+## [1] &quot;1 sheep over the fence&quot;</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>over.the.fence <span class="co"># our final object</span></span></code></pre></div>
+<pre><code>## [1] &quot;sheep&quot;</code></pre>
 <p>Okay. Let’s get to the question some of you might be asking. What is
 <strong>i</strong>? Well, let’s ask R what <strong>i</strong> is.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>i</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>i</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <p>See that <strong>i</strong> is 10, the number of times we specified
 the <strong>for loop</strong> to iterate. This is no coincidence. In
 this example, <strong>i</strong> acts as a counter for the loop. On each
 iteration, the value of <strong>i</strong> increased by 1.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){ <span class="co"># repeat 10 times</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(i) <span class="co"># print i on each iteration</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){ <span class="co"># repeat 10 times</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(i) <span class="co"># print i on each iteration</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] 1
 ## [1] 2
 ## [1] 3
@@ -3020,11 +3039,11 @@ iteration, the value of <strong>i</strong> increased by 1.</p>
 <p>By the way, the term <strong>i</strong> is not neccessary. It is
 common practice in coding to use terms like i, j, k, etc. However, this
 is not required for the code to run.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sheep.counter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sheep.counter) <span class="co"># print sheep.counter on each iteration</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sheep.counter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sheep.counter) <span class="co"># print sheep.counter on each iteration</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] 1
 ## [1] 2
 ## [1] 3
@@ -3047,28 +3066,28 @@ example.</p>
 </div>
 <p>Say, we wish to compute a aggregate score of introversion (via
 summation) using the <strong>for loop</strong>.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(introversion.data) <span class="co"># this gives us the number of rows in our dataset</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(introversion.data) <span class="co"># this gives us the number of rows in our dataset</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>introversion.items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;introversion1&quot;</span>, <span class="st">&quot;introversion2&quot;</span>, <span class="st">&quot;introversion3&quot;</span>, <span class="st">&quot;introversion4&quot;</span>, <span class="st">&quot;introversion5&quot;</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>introversion.items <span class="co"># the names of our introversion items for aesthetic purposes</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>introversion.items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;introversion1&quot;</span>, <span class="st">&quot;introversion2&quot;</span>, <span class="st">&quot;introversion3&quot;</span>, <span class="st">&quot;introversion4&quot;</span>, <span class="st">&quot;introversion5&quot;</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>introversion.items <span class="co"># the names of our introversion items for aesthetic purposes</span></span></code></pre></div>
 <pre><code>## [1] &quot;introversion1&quot; &quot;introversion2&quot; &quot;introversion3&quot; &quot;introversion4&quot;
 ## [5] &quot;introversion5&quot;</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># initializing new column</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(introversion.data)){ <span class="co"># for each row of the dataset</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  introversion.data[i , <span class="st">&quot;introversion.sum&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(introversion.data[i , introversion.items ]) <span class="co"># compute sum</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>introversion.data <span class="co"># showing the data</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># initializing new column</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(introversion.data)){ <span class="co"># for each row of the dataset</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  introversion.data[i , <span class="st">&quot;introversion.sum&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(introversion.data[i , introversion.items ]) <span class="co"># compute sum</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>introversion.data <span class="co"># showing the data</span></span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["introversion1"],"name":[2],"type":["int"],"align":["right"]},{"label":["introversion2"],"name":[3],"type":["int"],"align":["right"]},{"label":["introversion3"],"name":[4],"type":["int"],"align":["right"]},{"label":["introversion4"],"name":[5],"type":["int"],"align":["right"]},{"label":["introversion5"],"name":[6],"type":["int"],"align":["right"]},{"label":["introversion.sum"],"name":[7],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"2","3":"4","4":"5","5":"5","6":"3","7":"19"},{"1":"2","2":"3","3":"3","4":"3","5":"4","6":"5","7":"18"},{"1":"3","2":"1","3":"3","4":"1","5":"3","6":"3","7":"11"},{"1":"4","2":"2","3":"2","4":"3","5":"1","6":"4","7":"12"},{"1":"5","2":"4","3":"1","4":"4","5":"1","6":"3","7":"13"},{"1":"6","2":"4","3":"2","4":"2","5":"1","6":"3","7":"12"},{"1":"7","2":"2","3":"3","4":"5","5":"3","6":"3","7":"16"},{"1":"8","2":"3","3":"4","4":"5","5":"1","6":"4","7":"17"},{"1":"9","2":"2","3":"4","4":"5","5":"1","6":"3","7":"15"},{"1":"10","2":"5","3":"4","4":"1","5":"4","6":"5","7":"19"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="co"># showing the new computed variable only</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="co"># showing the new computed variable only</span></span></code></pre></div>
 <pre><code>##  [1] 19 18 11 12 13 12 16 17 15 19</code></pre>
 <p>Again, this follows the basic logic of iteration. First, we
 initialize an empty column which will house our computed scores later.
@@ -3093,17 +3112,17 @@ like the number of rows in the dataset or the number of items in a
 vector (using the <strong>length()</strong> function).</p>
 <p>However, the <strong>for loop</strong> actually reads 1:N as a
 vector.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <p>Instead, of increasing the value of <strong>i</strong> by one on each
 iteration, the <strong>for loop</strong> actually updates
 <strong>i</strong> to the next value in the numeric vector which you
 input.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span> ){</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(i) <span class="co"># print i on each iteration</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span> ){</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(i) <span class="co"># print i on each iteration</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] 10
 ## [1] 11
 ## [1] 12
@@ -3116,11 +3135,11 @@ input.</p>
 ## [1] 19
 ## [1] 20</code></pre>
 <p>Here is another example which completely ignores sequencing.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">90</span>) ){ </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(i) <span class="co"># print i on each iteration</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">90</span>) ){ </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(i) <span class="co"># print i on each iteration</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] 10
 ## [1] 20
 ## [1] 5
@@ -3132,28 +3151,28 @@ let’s say we only want to compute the sum of introversion scores for a
 subset of our participants. If we know the rows which correspond to
 these participants, we can re-write the <strong>for loop</strong> to
 only perform computations for this subset of participants.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>compute.these.participants <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">10</span>) </span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>compute.these.participants <span class="co"># vector which has the rows we want to compute</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>compute.these.participants <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">10</span>) </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>compute.these.participants <span class="co"># vector which has the rows we want to compute</span></span></code></pre></div>
 <pre><code>## [1]  1  3  9 10</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>introversion.items <span class="co"># the names of our introversion items </span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>introversion.items <span class="co"># the names of our introversion items </span></span></code></pre></div>
 <pre><code>## [1] &quot;introversion1&quot; &quot;introversion2&quot; &quot;introversion3&quot; &quot;introversion4&quot;
 ## [5] &quot;introversion5&quot;</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># initializing new column</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> compute.these.participants){ <span class="co"># iterate across only the rows that we want</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  introversion.data[i , <span class="st">&quot;introversion.sum&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(introversion.data[i , introversion.items ]) <span class="co"># compute sum</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>introversion.data <span class="co"># showing data set</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># initializing new column</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> compute.these.participants){ <span class="co"># iterate across only the rows that we want</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  introversion.data[i , <span class="st">&quot;introversion.sum&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(introversion.data[i , introversion.items ]) <span class="co"># compute sum</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>introversion.data <span class="co"># showing data set</span></span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["introversion1"],"name":[2],"type":["int"],"align":["right"]},{"label":["introversion2"],"name":[3],"type":["int"],"align":["right"]},{"label":["introversion3"],"name":[4],"type":["int"],"align":["right"]},{"label":["introversion4"],"name":[5],"type":["int"],"align":["right"]},{"label":["introversion5"],"name":[6],"type":["int"],"align":["right"]},{"label":["introversion.sum"],"name":[7],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"2","3":"4","4":"5","5":"5","6":"3","7":"19"},{"1":"2","2":"3","3":"3","4":"3","5":"4","6":"5","7":"NA"},{"1":"3","2":"1","3":"3","4":"1","5":"3","6":"3","7":"11"},{"1":"4","2":"2","3":"2","4":"3","5":"1","6":"4","7":"NA"},{"1":"5","2":"4","3":"1","4":"4","5":"1","6":"3","7":"NA"},{"1":"6","2":"4","3":"2","4":"2","5":"1","6":"3","7":"NA"},{"1":"7","2":"2","3":"3","4":"5","5":"3","6":"3","7":"NA"},{"1":"8","2":"3","3":"4","4":"5","5":"1","6":"4","7":"NA"},{"1":"9","2":"2","3":"4","4":"5","5":"1","6":"3","7":"15"},{"1":"10","2":"5","3":"4","4":"1","5":"4","6":"5","7":"19"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="co"># showing the new computed variable only</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="co"># showing the new computed variable only</span></span></code></pre></div>
 <pre><code>##  [1] 19 NA 11 NA NA NA NA NA 15 19</code></pre>
 <p>If we combine our knowledge of logical statements, we can further
 expand our capabilities with the for loop. Let’s say we wish to only
@@ -3161,30 +3180,30 @@ compute this aggregate score for participants who scored at least a 2 on
 introversion item 1. We can use <strong>which()</strong> to find out
 which rows correspond to these participants and run the <strong>for
 loop</strong> on these participants only.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)) <span class="co"># which() lets you find out the indexes of TRUE values </span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)) <span class="co"># which() lets you find out the indexes of TRUE values </span></span></code></pre></div>
 <pre><code>## [1] 1 3 5</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(introversion.data<span class="sc">$</span>introversion1 <span class="sc">&gt;</span> <span class="dv">2</span>) <span class="co"># this allows us to find the row numbers of participants with introversion1 score greater than 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(introversion.data<span class="sc">$</span>introversion1 <span class="sc">&gt;</span> <span class="dv">2</span>) <span class="co"># this allows us to find the row numbers of participants with introversion1 score greater than 2</span></span></code></pre></div>
 <pre><code>## [1]  2  5  6  8 10</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>compute.these.participants <span class="ot">&lt;-</span> <span class="fu">which</span>(introversion.data<span class="sc">$</span>introversion1 <span class="sc">&gt;</span> <span class="dv">2</span>) <span class="co"># let&#39;s save this into an object</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>introversion.items <span class="co"># the names of our introversion items for aesthetic purposes</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>compute.these.participants <span class="ot">&lt;-</span> <span class="fu">which</span>(introversion.data<span class="sc">$</span>introversion1 <span class="sc">&gt;</span> <span class="dv">2</span>) <span class="co"># let&#39;s save this into an object</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>introversion.items <span class="co"># the names of our introversion items for aesthetic purposes</span></span></code></pre></div>
 <pre><code>## [1] &quot;introversion1&quot; &quot;introversion2&quot; &quot;introversion3&quot; &quot;introversion4&quot;
 ## [5] &quot;introversion5&quot;</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># initializing new column</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> compute.these.participants){ <span class="co"># iterate across only the rows that we want</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  introversion.data[i , <span class="st">&quot;introversion.sum&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(introversion.data[i , introversion.items ]) <span class="co"># compute sum</span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>introversion.data <span class="co"># showing data set</span></span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># initializing new column</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> compute.these.participants){ <span class="co"># iterate across only the rows that we want</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  introversion.data[i , <span class="st">&quot;introversion.sum&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(introversion.data[i , introversion.items ]) <span class="co"># compute sum</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>introversion.data <span class="co"># showing data set</span></span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["introversion1"],"name":[2],"type":["int"],"align":["right"]},{"label":["introversion2"],"name":[3],"type":["int"],"align":["right"]},{"label":["introversion3"],"name":[4],"type":["int"],"align":["right"]},{"label":["introversion4"],"name":[5],"type":["int"],"align":["right"]},{"label":["introversion5"],"name":[6],"type":["int"],"align":["right"]},{"label":["introversion.sum"],"name":[7],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"2","3":"4","4":"5","5":"5","6":"3","7":"NA"},{"1":"2","2":"3","3":"3","4":"3","5":"4","6":"5","7":"18"},{"1":"3","2":"1","3":"3","4":"1","5":"3","6":"3","7":"NA"},{"1":"4","2":"2","3":"2","4":"3","5":"1","6":"4","7":"NA"},{"1":"5","2":"4","3":"1","4":"4","5":"1","6":"3","7":"13"},{"1":"6","2":"4","3":"2","4":"2","5":"1","6":"3","7":"12"},{"1":"7","2":"2","3":"3","4":"5","5":"3","6":"3","7":"NA"},{"1":"8","2":"3","3":"4","4":"5","5":"1","6":"4","7":"17"},{"1":"9","2":"2","3":"4","4":"5","5":"1","6":"3","7":"NA"},{"1":"10","2":"5","3":"4","4":"1","5":"4","6":"5","7":"19"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="co"># showing the new computed variable only</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="co"># showing the new computed variable only</span></span></code></pre></div>
 <pre><code>##  [1] NA 18 NA NA 13 12 NA 17 NA 19</code></pre>
 </div>
 <div id="if-else-statements" class="section level1" number="2">
@@ -3195,33 +3214,33 @@ When evaluating p-values, we often apply a simple logic by convention.
 If p is less than .05, we reject the null hypothesis. Otherwise, we
 retain the null hypothesis. We can express this using an <strong>if else
 statement</strong>.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">01</span> <span class="co"># assign p to the value .01 </span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">05</span>) { <span class="co"># condition 1 - p less than .05</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;reject null hypothesis&quot;</span>) <span class="co"># body 1 </span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { <span class="co"># all other cases</span></span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;retain null hypothesis&quot;</span>) <span class="co"># body 2</span></span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">01</span> <span class="co"># assign p to the value .01 </span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">05</span>) { <span class="co"># condition 1 - p less than .05</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;reject null hypothesis&quot;</span>) <span class="co"># body 1 </span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { <span class="co"># all other cases</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;retain null hypothesis&quot;</span>) <span class="co"># body 2</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;reject null hypothesis&quot;</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">5</span> <span class="co"># assign p to the value .5</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">05</span>) { <span class="co"># condition 1 - p less than .05</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;reject null hypothesis&quot;</span>) <span class="co"># body 1</span></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { <span class="co"># all other cases</span></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;retain null hypothesis&quot;</span>) <span class="co"># body 2</span></span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">5</span> <span class="co"># assign p to the value .5</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">05</span>) { <span class="co"># condition 1 - p less than .05</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;reject null hypothesis&quot;</span>) <span class="co"># body 1</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { <span class="co"># all other cases</span></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;retain null hypothesis&quot;</span>) <span class="co"># body 2</span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;retain null hypothesis&quot;</code></pre>
 <p>As you can see, depending on the value of p, the <strong>if else
 statement</strong> prints a different output. <strong>if</strong> (p
@@ -3234,19 +3253,19 @@ instance</em> when the first condition is not met.</p>
 In our example, the logic captures the basic convention of null
 hypothesis significance testing. However, it fails to handle some test
 cases appropriately.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span> <span class="co"># assign p to the value -1</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">05</span>) { <span class="co"># condition 1 - p less than .05</span></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;reject null hypothesis&quot;</span>) <span class="co"># body 1</span></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { <span class="co"># all other cases</span></span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;retain null hypothesis&quot;</span>) <span class="co"># body 2</span></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span> <span class="co"># assign p to the value -1</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">05</span>) { <span class="co"># condition 1 - p less than .05</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;reject null hypothesis&quot;</span>) <span class="co"># body 1</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { <span class="co"># all other cases</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;retain null hypothesis&quot;</span>) <span class="co"># body 2</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;reject null hypothesis&quot;</code></pre>
 <p>Here, we have a case of an invalid input where the value of p is
 theoretically impossible (since p is a probability). However, the
@@ -3255,23 +3274,23 @@ response because p = -1 is still less than .05.</p>
 <p>To handle invalid inputs, we need to add more conditions to our
 <strong>if else statement</strong>. To do so, we use the extension
 <strong>else if</strong>.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span> <span class="co"># assigns p to the value -1</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>){ <span class="co"># condition 1 - p more than 1 OR p less than 0</span></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;invalid input&quot;</span>) <span class="co"># body 1</span></span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">05</span>) { <span class="co"># condition 2 - p less than .05</span></span>
-<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;reject null hypothesis&quot;</span>) <span class="co"># body 2</span></span>
-<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { <span class="co"># all other cases</span></span>
-<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;retain null hypothesis&quot;</span>) <span class="co"># body 3</span></span>
-<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span> <span class="co"># assigns p to the value -1</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>){ <span class="co"># condition 1 - p more than 1 OR p less than 0</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;invalid input&quot;</span>) <span class="co"># body 1</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">05</span>) { <span class="co"># condition 2 - p less than .05</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;reject null hypothesis&quot;</span>) <span class="co"># body 2</span></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { <span class="co"># all other cases</span></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;retain null hypothesis&quot;</span>) <span class="co"># body 3</span></span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;invalid input&quot;</code></pre>
 <p>To fix this issue, we first check if the input is more than 1 OR less
 than 0 since p should theoretically fall between 0 and 1. If the input
@@ -3288,23 +3307,23 @@ before, the <strong>else</strong> handles cases where all above
 conditions are not met.</p>
 <p>Following this logic, think about the scenario where we flip the
 order of conditions 1 and 2 for our current example.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span> <span class="co"># assign p to the value -1</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">05</span>){ <span class="co"># condition 1 - p less than .05</span></span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;reject null hypothesis&quot;</span>) <span class="co"># body 1</span></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>) { <span class="co"># condition 2 - p more than 1 OR p less than 0</span></span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;invalid input&quot;</span>) <span class="co"># body 2</span></span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { <span class="co"># all other cases</span></span>
-<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;retain null hypothesis&quot;</span>) <span class="co"># body 3</span></span>
-<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span> <span class="co"># assign p to the value -1</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">05</span>){ <span class="co"># condition 1 - p less than .05</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;reject null hypothesis&quot;</span>) <span class="co"># body 1</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>) { <span class="co"># condition 2 - p more than 1 OR p less than 0</span></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;invalid input&quot;</span>) <span class="co"># body 2</span></span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> { <span class="co"># all other cases</span></span>
+<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;retain null hypothesis&quot;</span>) <span class="co"># body 3</span></span>
+<span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb68-16"><a href="#cb68-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb68-17"><a href="#cb68-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;reject null hypothesis&quot;</code></pre>
 <p>This example illustrates the importance of ordering your conditions.
 Since p = -1 is also less than .05, the <strong>if else
@@ -3316,47 +3335,7 @@ for reporting p-values. If the value is smaller than .001, we typically
 report p &lt; .001. In other cases, we report p-values in 2 decimal
 places. Let’s try to put this logic into an <strong>if else
 statement</strong>.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="dv">1</span> <span class="co"># assign p to the value -1</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>){ <span class="co"># condition 1 - p more than 1 OR p less than 0</span></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;invalid input&quot;</span>) <span class="co"># body 1</span></span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">001</span>) { <span class="co"># condition 2 - p less than .001</span></span>
-<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;p &lt; .001&quot;</span>) <span class="co"># body 2</span></span>
-<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> ( p <span class="sc">&gt;=</span> .<span class="dv">001</span>){ <span class="co"># condition 3 - p more than or equals to .001</span></span>
-<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p , <span class="at">digits =</span> <span class="dv">2</span>))) <span class="co"># body 3 - round off to 2 decimal places</span></span>
-<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { <span class="co"># all other cases</span></span>
-<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NULL</span> <span class="co"># body 4</span></span>
-<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;invalid input&quot;</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">00002</span> <span class="co"># assign p to the value .00002</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>){ <span class="co"># condition 1 - p more than 1 OR p less than 0</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;invalid input&quot;</span>) <span class="co"># body 1</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">001</span>) { <span class="co"># condition 2 - p less than .001</span></span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;p &lt; .001&quot;</span>) <span class="co"># body 2</span></span>
-<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> ( p <span class="sc">&gt;=</span> .<span class="dv">001</span>){ <span class="co"># condition 3 - p more than or equals to .001</span></span>
-<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p , <span class="at">digits =</span> <span class="dv">2</span>))) <span class="co"># body 3 - round off to 2 decimal places</span></span>
-<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { <span class="co"># all other cases</span></span>
-<span id="cb68-16"><a href="#cb68-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb68-17"><a href="#cb68-17" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NULL</span> <span class="co"># body 4</span></span>
-<span id="cb68-18"><a href="#cb68-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb68-19"><a href="#cb68-19" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
-<pre><code>## [1] &quot;p &lt; .001&quot;</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">0502</span> <span class="co"># assign p to the value .0502</span></span>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="dv">1</span> <span class="co"># assign p to the value -1</span></span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>){ <span class="co"># condition 1 - p more than 1 OR p less than 0</span></span>
 <span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>   </span>
@@ -3374,73 +3353,113 @@ statement</strong>.</p>
 <span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NULL</span> <span class="co"># body 4</span></span>
 <span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;invalid input&quot;</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">00002</span> <span class="co"># assign p to the value .00002</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>){ <span class="co"># condition 1 - p more than 1 OR p less than 0</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;invalid input&quot;</span>) <span class="co"># body 1</span></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">001</span>) { <span class="co"># condition 2 - p less than .001</span></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;p &lt; .001&quot;</span>) <span class="co"># body 2</span></span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> ( p <span class="sc">&gt;=</span> .<span class="dv">001</span>){ <span class="co"># condition 3 - p more than or equals to .001</span></span>
+<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p , <span class="at">digits =</span> <span class="dv">2</span>))) <span class="co"># body 3 - round off to 2 decimal places</span></span>
+<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { <span class="co"># all other cases</span></span>
+<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-17"><a href="#cb72-17" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NULL</span> <span class="co"># body 4</span></span>
+<span id="cb72-18"><a href="#cb72-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<pre><code>## [1] &quot;p &lt; .001&quot;</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">0502</span> <span class="co"># assign p to the value .0502</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>){ <span class="co"># condition 1 - p more than 1 OR p less than 0</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;invalid input&quot;</span>) <span class="co"># body 1</span></span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">001</span>) { <span class="co"># condition 2 - p less than .001</span></span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;p &lt; .001&quot;</span>) <span class="co"># body 2</span></span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> ( p <span class="sc">&gt;=</span> .<span class="dv">001</span>){ <span class="co"># condition 3 - p more than or equals to .001</span></span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p , <span class="at">digits =</span> <span class="dv">2</span>))) <span class="co"># body 3 - round off to 2 decimal places</span></span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { <span class="co"># all other cases</span></span>
+<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NULL</span> <span class="co"># body 4</span></span>
+<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb74-19"><a href="#cb74-19" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
 <pre><code>## [1] &quot;p = 0.05&quot;</code></pre>
 <p>As you might have noticed, we leave the body of the last condition
 (the else condition) blank by writing NULL. What makes
 <strong>NULL</strong> useful is that we can use it to skip certain
 conditions where we don’t wish to perform any function.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">1.5</span> </span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>){</span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NULL</span> <span class="co"># this is skipper</span></span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">001</span>) { </span>
-<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;p &lt; .001&quot;</span>)</span>
-<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> ( p <span class="sc">&gt;=</span> .<span class="dv">001</span>){ </span>
-<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p , <span class="dv">2</span>))) </span>
-<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb72-17"><a href="#cb72-17" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NULL</span></span>
-<span id="cb72-18"><a href="#cb72-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">1.5</span> </span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (p <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> p <span class="sc">&lt;</span> <span class="dv">0</span>){</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NULL</span> <span class="co"># this is skipper</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (p <span class="sc">&lt;</span> .<span class="dv">001</span>) { </span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> (<span class="st">&quot;p &lt; .001&quot;</span>)</span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> ( p <span class="sc">&gt;=</span> .<span class="dv">001</span>){ </span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="fu">paste</span>(<span class="st">&quot;p =&quot;</span>, <span class="fu">round</span>(p , <span class="dv">2</span>))) </span>
+<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb76-15"><a href="#cb76-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb76-16"><a href="#cb76-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb76-17"><a href="#cb76-17" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NULL</span></span>
+<span id="cb76-18"><a href="#cb76-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb76-19"><a href="#cb76-19" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
 <pre><code>## NULL</code></pre>
 <p>One last tip about <strong>if else statements</strong> is that it is
 not necessary to specify the <strong>else</strong> when you have no need
 for it. For example, you can execute the following code without any
 problems.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># set count to 0</span></span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.numeric</span>(count)){ <span class="co"># if input is a number </span></span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  count <span class="ot">&lt;-</span> count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add count by 1</span></span>
-<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>count</span></code></pre></div>
-<pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.numeric</span>(count) <span class="sc">&amp;</span> count <span class="sc">&gt;</span> <span class="dv">0</span>) { <span class="co"># if input is a number and greater than 0</span></span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  count <span class="ot">&lt;-</span> count <span class="sc">-</span> <span class="dv">1</span> <span class="co"># subtract 1 from count</span></span>
-<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.numeric</span>(count) <span class="sc">&amp;</span> count <span class="sc">==</span> <span class="dv">0</span>) { <span class="co"># else if input is number and equals to 0</span></span>
-<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Countdown is Complete!&quot;</span>)) <span class="co"># print message </span></span>
-<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a>count</span></code></pre></div>
-<pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># set count to 0</span></span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.numeric</span>(count) <span class="sc">&amp;</span> count <span class="sc">&gt;</span> <span class="dv">0</span>) { <span class="co"># if input is a number and greater than 0</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.numeric</span>(count)){ <span class="co"># if input is a number </span></span>
 <span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  count <span class="ot">&lt;-</span> count <span class="sc">-</span> <span class="dv">1</span> <span class="co"># subtract 1 from count</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  count <span class="ot">&lt;-</span> count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add count by 1</span></span>
 <span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.numeric</span>(count) <span class="sc">&amp;</span> count <span class="sc">==</span> <span class="dv">0</span>) { <span class="co"># else if input is number and equals to 0</span></span>
-<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Countdown is Complete!&quot;</span>)) <span class="co"># print message </span></span>
-<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>count</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.numeric</span>(count) <span class="sc">&amp;</span> count <span class="sc">&gt;</span> <span class="dv">0</span>) { <span class="co"># if input is a number and greater than 0</span></span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>  count <span class="ot">&lt;-</span> count <span class="sc">-</span> <span class="dv">1</span> <span class="co"># subtract 1 from count</span></span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.numeric</span>(count) <span class="sc">&amp;</span> count <span class="sc">==</span> <span class="dv">0</span>) { <span class="co"># else if input is number and equals to 0</span></span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Countdown is Complete!&quot;</span>)) <span class="co"># print message </span></span>
+<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb80-11"><a href="#cb80-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb80-12"><a href="#cb80-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-13"><a href="#cb80-13" aria-hidden="true" tabindex="-1"></a>count</span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.numeric</span>(count) <span class="sc">&amp;</span> count <span class="sc">&gt;</span> <span class="dv">0</span>) { <span class="co"># if input is a number and greater than 0</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>  count <span class="ot">&lt;-</span> count <span class="sc">-</span> <span class="dv">1</span> <span class="co"># subtract 1 from count</span></span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.numeric</span>(count) <span class="sc">&amp;</span> count <span class="sc">==</span> <span class="dv">0</span>) { <span class="co"># else if input is number and equals to 0</span></span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Countdown is Complete!&quot;</span>)) <span class="co"># print message </span></span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;Countdown is Complete!&quot;</code></pre>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>count</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>count</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 </div>
 <div id="combining-for-loops-and-if-else-statements" class="section level1" number="3">
@@ -3463,11 +3482,11 @@ time, we have 3 different kinds of sheep, white sheep, black sheep, and
 bald sheep. We want to count the numbers of each type of sheep for any
 possible herd of sheep. Here’s a randomly generated set of 100
 sheep.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>) <span class="co"># seed to ensure our &quot;random&quot; draws are fixed </span></span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;white sheep&quot;</span>, <span class="st">&quot;black sheep&quot;</span>, <span class="st">&quot;bald sheep&quot;</span>), <span class="dv">100</span>, <span class="at">replace =</span> T) <span class="co"># randomly draw 100 sheep with replacement</span></span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="co"># our herd</span></span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>) <span class="co"># seed to ensure our &quot;random&quot; draws are fixed </span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;white sheep&quot;</span>, <span class="st">&quot;black sheep&quot;</span>, <span class="st">&quot;bald sheep&quot;</span>), <span class="dv">100</span>, <span class="at">replace =</span> T) <span class="co"># randomly draw 100 sheep with replacement</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="co"># our herd</span></span></code></pre></div>
 <pre><code>##   [1] &quot;black sheep&quot; &quot;bald sheep&quot;  &quot;black sheep&quot; &quot;bald sheep&quot;  &quot;white sheep&quot;
 ##   [6] &quot;black sheep&quot; &quot;black sheep&quot; &quot;bald sheep&quot;  &quot;black sheep&quot; &quot;black sheep&quot;
 ##  [11] &quot;bald sheep&quot;  &quot;black sheep&quot; &quot;black sheep&quot; &quot;bald sheep&quot;  &quot;bald sheep&quot; 
@@ -3493,33 +3512,33 @@ bald sheep in this herd. To do so, we can use a <strong>for
 loop</strong> to iterate through this herd, sheep by sheep, keeping
 count of each type of sheep using an <strong>if else
 statement</strong>.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># initialize counter for white sheep</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>black.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># initialize counter for black sheep</span></span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>bald.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># initialize counter for bald sheep</span></span>
-<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheep.herd)){ <span class="co"># for each sheep in a given herd</span></span>
-<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;white sheep&quot;</span>){ <span class="co"># check if sheep is white</span></span>
-<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>    white.sheep.count <span class="ot">&lt;-</span>  white.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to white sheep counter</span></span>
-<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;black sheep&quot;</span>) { <span class="co"># check if sheep is black</span></span>
-<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a>   black.sheep.count <span class="ot">&lt;-</span>  black.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to black sheep counter</span></span>
-<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;bald sheep&quot;</span>) { <span class="co"># check if sheep is bald</span></span>
-<span id="cb84-16"><a href="#cb84-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb84-17"><a href="#cb84-17" aria-hidden="true" tabindex="-1"></a>  bald.sheep.count <span class="ot">&lt;-</span>  bald.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to bald sheep counter</span></span>
-<span id="cb84-18"><a href="#cb84-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb84-19"><a href="#cb84-19" aria-hidden="true" tabindex="-1"></a>  } </span>
-<span id="cb84-20"><a href="#cb84-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb84-21"><a href="#cb84-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb84-22"><a href="#cb84-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb84-23"><a href="#cb84-23" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="co"># number of white sheep</span></span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># initialize counter for white sheep</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>black.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># initialize counter for black sheep</span></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>bald.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># initialize counter for bald sheep</span></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheep.herd)){ <span class="co"># for each sheep in a given herd</span></span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;white sheep&quot;</span>){ <span class="co"># check if sheep is white</span></span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>    white.sheep.count <span class="ot">&lt;-</span>  white.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to white sheep counter</span></span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;black sheep&quot;</span>) { <span class="co"># check if sheep is black</span></span>
+<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>   black.sheep.count <span class="ot">&lt;-</span>  black.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to black sheep counter</span></span>
+<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;bald sheep&quot;</span>) { <span class="co"># check if sheep is bald</span></span>
+<span id="cb88-16"><a href="#cb88-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb88-17"><a href="#cb88-17" aria-hidden="true" tabindex="-1"></a>  bald.sheep.count <span class="ot">&lt;-</span>  bald.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to bald sheep counter</span></span>
+<span id="cb88-18"><a href="#cb88-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb88-19"><a href="#cb88-19" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb88-20"><a href="#cb88-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb88-21"><a href="#cb88-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb88-22"><a href="#cb88-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb88-23"><a href="#cb88-23" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="co"># number of white sheep</span></span></code></pre></div>
 <pre><code>## [1] 26</code></pre>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>black.sheep.count <span class="co"># number of black sheep</span></span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>black.sheep.count <span class="co"># number of black sheep</span></span></code></pre></div>
 <pre><code>## [1] 34</code></pre>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>bald.sheep.count <span class="co"># number of bald sheep</span></span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>bald.sheep.count <span class="co"># number of bald sheep</span></span></code></pre></div>
 <pre><code>## [1] 40</code></pre>
 <p>First, we initialized a counter for each kind of sheep (starting at 0
 sheep). Next, we iterated through the herd using a <strong>for
@@ -3531,33 +3550,33 @@ black.sheep.count by 1 and so on.</p>
 written it such that there are only 2 conditions (white sheep and black
 sheep) and count the bald sheep after the <strong>else</strong>
 condition, like so.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># initialize counter for white sheep</span></span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>black.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># initialize counter for black sheep</span></span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>bald.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># initialize counter for bald sheep</span></span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheep.herd)){ <span class="co"># for each sheep in a given herd</span></span>
-<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;white sheep&quot;</span>){ <span class="co"># check if sheep is white</span></span>
-<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>    white.sheep.count <span class="ot">&lt;-</span>  white.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to white sheep counter</span></span>
-<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;black sheep&quot;</span>) { <span class="co"># check if sheep is black</span></span>
-<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>   black.sheep.count <span class="ot">&lt;-</span>  black.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to black sheep counter</span></span>
-<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { <span class="co"># count remaining sheep as bald</span></span>
-<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb90-17"><a href="#cb90-17" aria-hidden="true" tabindex="-1"></a>    bald.sheep.count <span class="ot">&lt;-</span>  bald.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to bald sheep counter</span></span>
-<span id="cb90-18"><a href="#cb90-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb90-19"><a href="#cb90-19" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb90-20"><a href="#cb90-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb90-21"><a href="#cb90-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb90-22"><a href="#cb90-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb90-23"><a href="#cb90-23" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="co"># number of white sheep</span></span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># initialize counter for white sheep</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>black.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># initialize counter for black sheep</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>bald.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># initialize counter for bald sheep</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheep.herd)){ <span class="co"># for each sheep in a given herd</span></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;white sheep&quot;</span>){ <span class="co"># check if sheep is white</span></span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>    white.sheep.count <span class="ot">&lt;-</span>  white.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to white sheep counter</span></span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;black sheep&quot;</span>) { <span class="co"># check if sheep is black</span></span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>   black.sheep.count <span class="ot">&lt;-</span>  black.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to black sheep counter</span></span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { <span class="co"># count remaining sheep as bald</span></span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>    bald.sheep.count <span class="ot">&lt;-</span>  bald.sheep.count <span class="sc">+</span> <span class="dv">1</span> <span class="co"># add 1 to bald sheep counter</span></span>
+<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb94-19"><a href="#cb94-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb94-20"><a href="#cb94-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb94-21"><a href="#cb94-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb94-22"><a href="#cb94-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb94-23"><a href="#cb94-23" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="co"># number of white sheep</span></span></code></pre></div>
 <pre><code>## [1] 26</code></pre>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>black.sheep.count <span class="co"># number of black sheep</span></span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>black.sheep.count <span class="co"># number of black sheep</span></span></code></pre></div>
 <pre><code>## [1] 34</code></pre>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>bald.sheep.count <span class="co"># number of supposed bald sheep (all other entries are counted here as well)</span></span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>bald.sheep.count <span class="co"># number of supposed bald sheep (all other entries are counted here as well)</span></span></code></pre></div>
 <pre><code>## [1] 40</code></pre>
 <p>While this yielded the correct counts, note that it is prone to
 error. If an input value wasn’t “bald sheep”, the code would still add a
@@ -3567,11 +3586,11 @@ explicitly write out all conditions using ifs and else ifs as a default
 way of writing <strong>if else statements</strong>. Use the else
 statment to handle cases which you might have missed. I illustrate this
 point more clearly below.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;white sheep&quot;</span>, <span class="st">&quot;black sheep&quot;</span>, <span class="st">&quot;bald sheep&quot;</span>, <span class="st">&quot;horse&quot;</span>), <span class="dv">100</span>, <span class="at">replace =</span> T)</span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="co"># new sheep herd but with horses</span></span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;white sheep&quot;</span>, <span class="st">&quot;black sheep&quot;</span>, <span class="st">&quot;bald sheep&quot;</span>, <span class="st">&quot;horse&quot;</span>), <span class="dv">100</span>, <span class="at">replace =</span> T)</span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="co"># new sheep herd but with horses</span></span></code></pre></div>
 <pre><code>##   [1] &quot;black sheep&quot; &quot;bald sheep&quot;  &quot;black sheep&quot; &quot;horse&quot;       &quot;bald sheep&quot; 
 ##   [6] &quot;white sheep&quot; &quot;black sheep&quot; &quot;black sheep&quot; &quot;horse&quot;       &quot;bald sheep&quot; 
 ##  [11] &quot;horse&quot;       &quot;black sheep&quot; &quot;black sheep&quot; &quot;horse&quot;       &quot;bald sheep&quot; 
@@ -3592,41 +3611,41 @@ point more clearly below.</p>
 ##  [86] &quot;horse&quot;       &quot;bald sheep&quot;  &quot;black sheep&quot; &quot;black sheep&quot; &quot;white sheep&quot;
 ##  [91] &quot;bald sheep&quot;  &quot;bald sheep&quot;  &quot;bald sheep&quot;  &quot;horse&quot;       &quot;horse&quot;      
 ##  [96] &quot;bald sheep&quot;  &quot;white sheep&quot; &quot;horse&quot;       &quot;horse&quot;       &quot;black sheep&quot;</code></pre>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
-<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>black.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>bald.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>others <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># initialize counter for all other entries</span></span>
-<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheep.herd)){ </span>
-<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;white sheep&quot;</span>){</span>
-<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>    white.sheep.count <span class="ot">&lt;-</span>  white.sheep.count <span class="sc">+</span> <span class="dv">1</span> </span>
-<span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;black sheep&quot;</span>) {</span>
-<span id="cb98-14"><a href="#cb98-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb98-15"><a href="#cb98-15" aria-hidden="true" tabindex="-1"></a>   black.sheep.count <span class="ot">&lt;-</span>  black.sheep.count <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb98-16"><a href="#cb98-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb98-17"><a href="#cb98-17" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;bald sheep&quot;</span>) {</span>
-<span id="cb98-18"><a href="#cb98-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb98-19"><a href="#cb98-19" aria-hidden="true" tabindex="-1"></a>  bald.sheep.count <span class="ot">&lt;-</span>  bald.sheep.count <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb98-20"><a href="#cb98-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb98-21"><a href="#cb98-21" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { <span class="co"># count input that did not fall in any of the 3 kinds of sheep</span></span>
-<span id="cb98-22"><a href="#cb98-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb98-23"><a href="#cb98-23" aria-hidden="true" tabindex="-1"></a>    others <span class="ot">&lt;-</span> others <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb98-24"><a href="#cb98-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb98-25"><a href="#cb98-25" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb98-26"><a href="#cb98-26" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb98-27"><a href="#cb98-27" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb98-28"><a href="#cb98-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb98-29"><a href="#cb98-29" aria-hidden="true" tabindex="-1"></a>white.sheep.count</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>black.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>bald.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>others <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># initialize counter for all other entries</span></span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheep.herd)){ </span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;white sheep&quot;</span>){</span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>    white.sheep.count <span class="ot">&lt;-</span>  white.sheep.count <span class="sc">+</span> <span class="dv">1</span> </span>
+<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb102-13"><a href="#cb102-13" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;black sheep&quot;</span>) {</span>
+<span id="cb102-14"><a href="#cb102-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb102-15"><a href="#cb102-15" aria-hidden="true" tabindex="-1"></a>   black.sheep.count <span class="ot">&lt;-</span>  black.sheep.count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb102-16"><a href="#cb102-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb102-17"><a href="#cb102-17" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span>(sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;bald sheep&quot;</span>) {</span>
+<span id="cb102-18"><a href="#cb102-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb102-19"><a href="#cb102-19" aria-hidden="true" tabindex="-1"></a>  bald.sheep.count <span class="ot">&lt;-</span>  bald.sheep.count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb102-20"><a href="#cb102-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb102-21"><a href="#cb102-21" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { <span class="co"># count input that did not fall in any of the 3 kinds of sheep</span></span>
+<span id="cb102-22"><a href="#cb102-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb102-23"><a href="#cb102-23" aria-hidden="true" tabindex="-1"></a>    others <span class="ot">&lt;-</span> others <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb102-24"><a href="#cb102-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb102-25"><a href="#cb102-25" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb102-26"><a href="#cb102-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb102-27"><a href="#cb102-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb102-28"><a href="#cb102-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb102-29"><a href="#cb102-29" aria-hidden="true" tabindex="-1"></a>white.sheep.count</span></code></pre></div>
 <pre><code>## [1] 18</code></pre>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>black.sheep.count</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>black.sheep.count</span></code></pre></div>
 <pre><code>## [1] 26</code></pre>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>bald.sheep.count</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>bald.sheep.count</span></code></pre></div>
 <pre><code>## [1] 32</code></pre>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>others <span class="co"># number of non-sheep entries</span></span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>others <span class="co"># number of non-sheep entries</span></span></code></pre></div>
 <pre><code>## [1] 24</code></pre>
 </div>
 <div id="example-involving-dataframes" class="section level2" number="3.2">
@@ -3647,19 +3666,19 @@ statements</strong>.</p>
 {"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["introversion1"],"name":[2],"type":["int"],"align":["right"]},{"label":["introversion2"],"name":[3],"type":["int"],"align":["right"]},{"label":["introversion3"],"name":[4],"type":["int"],"align":["right"]},{"label":["introversion4"],"name":[5],"type":["int"],"align":["right"]},{"label":["introversion5"],"name":[6],"type":["int"],"align":["right"]},{"label":["attention.check"],"name":[7],"type":["lgl"],"align":["right"]}],"data":[{"1":"1","2":"2","3":"4","4":"5","5":"5","6":"3","7":"FALSE"},{"1":"2","2":"3","3":"3","4":"3","5":"4","6":"5","7":"TRUE"},{"1":"3","2":"1","3":"3","4":"1","5":"3","6":"3","7":"TRUE"},{"1":"4","2":"2","3":"2","4":"3","5":"1","6":"4","7":"TRUE"},{"1":"5","2":"4","3":"1","4":"4","5":"1","6":"3","7":"FALSE"},{"1":"6","2":"4","3":"2","4":"2","5":"1","6":"3","7":"TRUE"},{"1":"7","2":"2","3":"3","4":"5","5":"3","6":"3","7":"FALSE"},{"1":"8","2":"3","3":"4","4":"5","5":"1","6":"4","7":"FALSE"},{"1":"9","2":"2","3":"4","4":"5","5":"1","6":"3","7":"TRUE"},{"1":"10","2":"5","3":"4","4":"1","5":"4","6":"5","7":"TRUE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># initialize output column</span></span>
-<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(introversion.data)){ <span class="co"># for each row in dataset</span></span>
-<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (introversion.data[i , <span class="st">&quot;attention.check&quot;</span>] <span class="sc">==</span> <span class="cn">TRUE</span>){ <span class="co"># check if attention.check is TRUE</span></span>
-<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a>    introversion.data[i, <span class="st">&quot;introversion.sum&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(introversion.data[i, introversion.items]) <span class="co"># compute sum</span></span>
-<span id="cb107-8"><a href="#cb107-8" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb107-9"><a href="#cb107-9" aria-hidden="true" tabindex="-1"></a>  } </span>
-<span id="cb107-10"><a href="#cb107-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb107-11"><a href="#cb107-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb107-12"><a href="#cb107-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb107-13"><a href="#cb107-13" aria-hidden="true" tabindex="-1"></a>introversion.data <span class="co"># show dataset</span></span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>introversion.data<span class="sc">$</span>introversion.sum <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># initialize output column</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(introversion.data)){ <span class="co"># for each row in dataset</span></span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (introversion.data[i , <span class="st">&quot;attention.check&quot;</span>] <span class="sc">==</span> <span class="cn">TRUE</span>){ <span class="co"># check if attention.check is TRUE</span></span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a>    introversion.data[i, <span class="st">&quot;introversion.sum&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(introversion.data[i, introversion.items]) <span class="co"># compute sum</span></span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb111-10"><a href="#cb111-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb111-11"><a href="#cb111-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb111-12"><a href="#cb111-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-13"><a href="#cb111-13" aria-hidden="true" tabindex="-1"></a>introversion.data <span class="co"># show dataset</span></span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["introversion1"],"name":[2],"type":["int"],"align":["right"]},{"label":["introversion2"],"name":[3],"type":["int"],"align":["right"]},{"label":["introversion3"],"name":[4],"type":["int"],"align":["right"]},{"label":["introversion4"],"name":[5],"type":["int"],"align":["right"]},{"label":["introversion5"],"name":[6],"type":["int"],"align":["right"]},{"label":["attention.check"],"name":[7],"type":["lgl"],"align":["right"]},{"label":["introversion.sum"],"name":[8],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"2","3":"4","4":"5","5":"5","6":"3","7":"FALSE","8":"NA"},{"1":"2","2":"3","3":"3","4":"3","5":"4","6":"5","7":"TRUE","8":"18"},{"1":"3","2":"1","3":"3","4":"1","5":"3","6":"3","7":"TRUE","8":"11"},{"1":"4","2":"2","3":"2","4":"3","5":"1","6":"4","7":"TRUE","8":"12"},{"1":"5","2":"4","3":"1","4":"4","5":"1","6":"3","7":"FALSE","8":"NA"},{"1":"6","2":"4","3":"2","4":"2","5":"1","6":"3","7":"TRUE","8":"12"},{"1":"7","2":"2","3":"3","4":"5","5":"3","6":"3","7":"FALSE","8":"NA"},{"1":"8","2":"3","3":"4","4":"5","5":"1","6":"4","7":"FALSE","8":"NA"},{"1":"9","2":"2","3":"4","4":"5","5":"1","6":"3","7":"TRUE","8":"15"},{"1":"10","2":"5","3":"4","4":"1","5":"4","6":"5","7":"TRUE","8":"19"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -3692,9 +3711,9 @@ cases.</p>
 <h3><span class="header-section-number">3.3.1</span> break</h3>
 <p>Here I have a simple problem of finding out whether a name exists
 within a list of names.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Bobby&quot;</span>, <span class="st">&quot;Tom&quot;</span>, <span class="st">&quot;Janet&quot;</span>, <span class="st">&quot;Tiffany&quot;</span>, <span class="st">&quot;Timmy&quot;</span>, <span class="st">&quot;Melissa&quot;</span>)</span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>list</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Bobby&quot;</span>, <span class="st">&quot;Tom&quot;</span>, <span class="st">&quot;Janet&quot;</span>, <span class="st">&quot;Tiffany&quot;</span>, <span class="st">&quot;Timmy&quot;</span>, <span class="st">&quot;Melissa&quot;</span>)</span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>list</span></code></pre></div>
 <pre><code>## [1] &quot;Bobby&quot;   &quot;Tom&quot;     &quot;Janet&quot;   &quot;Tiffany&quot; &quot;Timmy&quot;   &quot;Melissa&quot;</code></pre>
 <p>Here, we have a short list of names. We might wish to find out
 whether a given name (e.g. Janet) is within this list. Of course, in
@@ -3707,21 +3726,21 @@ tutorial.</p>
 <p>One simple strategy is to iterate through the list and return TRUE
 when a value in this list is equivalent to the input and FALSE
 otherwise.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="st">&quot;Janet&quot;</span></span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(list)){ <span class="co"># for each value in list</span></span>
-<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (list[i] <span class="sc">==</span> input) {</span>
-<span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb110-7"><a href="#cb110-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="cn">TRUE</span>)</span>
-<span id="cb110-8"><a href="#cb110-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb110-9"><a href="#cb110-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb110-10"><a href="#cb110-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb110-11"><a href="#cb110-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="cn">FALSE</span>)</span>
-<span id="cb110-12"><a href="#cb110-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb110-13"><a href="#cb110-13" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb110-14"><a href="#cb110-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb110-15"><a href="#cb110-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="st">&quot;Janet&quot;</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(list)){ <span class="co"># for each value in list</span></span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (list[i] <span class="sc">==</span> input) {</span>
+<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="cn">TRUE</span>)</span>
+<span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb114-9"><a href="#cb114-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb114-10"><a href="#cb114-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb114-11"><a href="#cb114-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="cn">FALSE</span>)</span>
+<span id="cb114-12"><a href="#cb114-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb114-13"><a href="#cb114-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb114-14"><a href="#cb114-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb114-15"><a href="#cb114-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] FALSE
 ## [1] FALSE
 ## [1] TRUE
@@ -3735,23 +3754,23 @@ whether at least one of the items in the list matches the given input.
 It seems unnecessary to keep running the for loop after you have found a
 single match. In that event, you want to “break” out of the loop. To do
 so, we can use the <strong>break</strong> operator.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="st">&quot;Janet&quot;</span></span>
-<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(list)){ <span class="co"># for each value in list</span></span>
-<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (list[i] <span class="sc">==</span> input) {</span>
-<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="cn">TRUE</span>)</span>
-<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span> <span class="co"># break out of loop</span></span>
-<span id="cb112-10"><a href="#cb112-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb112-11"><a href="#cb112-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb112-12"><a href="#cb112-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb112-13"><a href="#cb112-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="cn">FALSE</span>)</span>
-<span id="cb112-14"><a href="#cb112-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb112-15"><a href="#cb112-15" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb112-16"><a href="#cb112-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb112-17"><a href="#cb112-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="st">&quot;Janet&quot;</span></span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(list)){ <span class="co"># for each value in list</span></span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (list[i] <span class="sc">==</span> input) {</span>
+<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb116-7"><a href="#cb116-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="cn">TRUE</span>)</span>
+<span id="cb116-8"><a href="#cb116-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span> <span class="co"># break out of loop</span></span>
+<span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb116-11"><a href="#cb116-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb116-12"><a href="#cb116-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb116-13"><a href="#cb116-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (<span class="cn">FALSE</span>)</span>
+<span id="cb116-14"><a href="#cb116-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb116-15"><a href="#cb116-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb116-16"><a href="#cb116-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb116-17"><a href="#cb116-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] FALSE
 ## [1] FALSE
 ## [1] TRUE</code></pre>
@@ -3770,34 +3789,34 @@ no code you want to execute.</p>
 <p>Say you have a sheep herd and wish to count the number of white
 sheep. You are not really concerned with the numbers of the other
 sheep.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;white sheep&quot;</span>, <span class="st">&quot;black sheep&quot;</span>, <span class="st">&quot;bald sheep&quot;</span>), <span class="dv">30</span>, <span class="at">replace =</span> T)</span>
-<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="co"># new sheep herd but with horses</span></span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;white sheep&quot;</span>, <span class="st">&quot;black sheep&quot;</span>, <span class="st">&quot;bald sheep&quot;</span>), <span class="dv">30</span>, <span class="at">replace =</span> T)</span>
+<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a>sheep.herd <span class="co"># new sheep herd but with horses</span></span></code></pre></div>
 <pre><code>##  [1] &quot;black sheep&quot; &quot;bald sheep&quot;  &quot;black sheep&quot; &quot;bald sheep&quot;  &quot;white sheep&quot;
 ##  [6] &quot;black sheep&quot; &quot;black sheep&quot; &quot;bald sheep&quot;  &quot;black sheep&quot; &quot;black sheep&quot;
 ## [11] &quot;bald sheep&quot;  &quot;black sheep&quot; &quot;black sheep&quot; &quot;bald sheep&quot;  &quot;bald sheep&quot; 
 ## [16] &quot;bald sheep&quot;  &quot;bald sheep&quot;  &quot;black sheep&quot; &quot;white sheep&quot; &quot;bald sheep&quot; 
 ## [21] &quot;bald sheep&quot;  &quot;black sheep&quot; &quot;white sheep&quot; &quot;black sheep&quot; &quot;bald sheep&quot; 
 ## [26] &quot;black sheep&quot; &quot;white sheep&quot; &quot;bald sheep&quot;  &quot;bald sheep&quot;  &quot;white sheep&quot;</code></pre>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
-<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheep.herd)){ </span>
-<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;white sheep&quot;</span>){</span>
-<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb116-7"><a href="#cb116-7" aria-hidden="true" tabindex="-1"></a>    white.sheep.count <span class="ot">&lt;-</span>  white.sheep.count <span class="sc">+</span> <span class="dv">1</span> </span>
-<span id="cb116-8"><a href="#cb116-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { </span>
-<span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb116-11"><a href="#cb116-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">next</span> <span class="co"># skip to next iteration of loop</span></span>
-<span id="cb116-12"><a href="#cb116-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb116-13"><a href="#cb116-13" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb116-14"><a href="#cb116-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb116-15"><a href="#cb116-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>( white.sheep.count, <span class="st">&quot;white sheep jumped over the fence&quot;</span> )) <span class="co"># print message</span></span>
-<span id="cb116-16"><a href="#cb116-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb116-17"><a href="#cb116-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheep.herd)){ </span>
+<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;white sheep&quot;</span>){</span>
+<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a>    white.sheep.count <span class="ot">&lt;-</span>  white.sheep.count <span class="sc">+</span> <span class="dv">1</span> </span>
+<span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { </span>
+<span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb120-11"><a href="#cb120-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">next</span> <span class="co"># skip to next iteration of loop</span></span>
+<span id="cb120-12"><a href="#cb120-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb120-13"><a href="#cb120-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb120-14"><a href="#cb120-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-15"><a href="#cb120-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>( white.sheep.count, <span class="st">&quot;white sheep jumped over the fence&quot;</span> )) <span class="co"># print message</span></span>
+<span id="cb120-16"><a href="#cb120-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-17"><a href="#cb120-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;1 white sheep jumped over the fence&quot;
 ## [1] &quot;2 white sheep jumped over the fence&quot;
 ## [1] &quot;3 white sheep jumped over the fence&quot;
@@ -3809,19 +3828,19 @@ counts (see below for what happens without adding the
 <strong>next</strong> operator). This is because <strong>next</strong>
 forcibly ends the current iteration of the <strong>for loop</strong> and
 skips ahead to the next iteration.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
-<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheep.herd)){ </span>
-<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;white sheep&quot;</span>){</span>
-<span id="cb118-6"><a href="#cb118-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb118-7"><a href="#cb118-7" aria-hidden="true" tabindex="-1"></a>    white.sheep.count <span class="ot">&lt;-</span>  white.sheep.count <span class="sc">+</span> <span class="dv">1</span> </span>
-<span id="cb118-8"><a href="#cb118-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb118-9"><a href="#cb118-9" aria-hidden="true" tabindex="-1"></a>  } <span class="co"># did not add next</span></span>
-<span id="cb118-10"><a href="#cb118-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb118-11"><a href="#cb118-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>( white.sheep.count, <span class="st">&quot;white sheep jumped over the fence&quot;</span> )) <span class="co"># print message</span></span>
-<span id="cb118-12"><a href="#cb118-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb118-13"><a href="#cb118-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>white.sheep.count <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(sheep.herd)){ </span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (sheep.herd[i] <span class="sc">==</span> <span class="st">&quot;white sheep&quot;</span>){</span>
+<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a>    white.sheep.count <span class="ot">&lt;-</span>  white.sheep.count <span class="sc">+</span> <span class="dv">1</span> </span>
+<span id="cb122-8"><a href="#cb122-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a>  } <span class="co"># did not add next</span></span>
+<span id="cb122-10"><a href="#cb122-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb122-11"><a href="#cb122-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>( white.sheep.count, <span class="st">&quot;white sheep jumped over the fence&quot;</span> )) <span class="co"># print message</span></span>
+<span id="cb122-12"><a href="#cb122-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb122-13"><a href="#cb122-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;0 white sheep jumped over the fence&quot;
 ## [1] &quot;0 white sheep jumped over the fence&quot;
 ## [1] &quot;0 white sheep jumped over the fence&quot;
@@ -3852,6 +3871,48 @@ skips ahead to the next iteration.</p>
 ## [1] &quot;4 white sheep jumped over the fence&quot;
 ## [1] &quot;4 white sheep jumped over the fence&quot;
 ## [1] &quot;5 white sheep jumped over the fence&quot;</code></pre>
+</div>
+<div id="nested-for-loops" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> nested for
+loops</h3>
+<p>One thing I did not really cover is nested for loops. This topic
+deserves a dedicated chapter on its own but I believe I can quickly
+share the logic of it before we end the tutorial. <strong>for
+loops</strong> can actually be used within other for loops. Here’s a
+simple example.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>)){</span>
+<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(i, j))</span>
+<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb124-5"><a href="#cb124-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;1 a&quot;
+## [1] &quot;1 b&quot;
+## [1] &quot;1 c&quot;
+## [1] &quot;2 a&quot;
+## [1] &quot;2 b&quot;
+## [1] &quot;2 c&quot;
+## [1] &quot;3 a&quot;
+## [1] &quot;3 b&quot;
+## [1] &quot;3 c&quot;</code></pre>
+<p>The logic is a simple extension of a single <strong>for
+loop</strong>. The first loop (or outer loop) iterates on i from 1 to 3.
+On each iteration, the second loop (or inner loop) runs and iterates on
+j from “a” to “c”. Hence, the first 3 outputs are “1a”, “1b”, and “1c”
+which takes place within the first iteration of the outer loop.</p>
+<p>It is worth noting that nesting <strong>for loops</strong> can be
+computationally expensive. We are essentially iterating over all
+possible permutations of both loops. In this case, we iterate over 3
+elements in both loops. That surmounts to 3x3=9 iterations. If you are
+iterating over longer sequences (say a 1000 elements), that would
+surmount to 1000x1000 iterations. Nesting a third or fourth loop will be
+even more expensive (that said, modern day computers are really powerful
+so it is still feasible to use nested for loops).</p>
+<p>Even though nested for loops are a mere extension of for loops, it
+significantly increases your capabilities to solve complex problems.
+However, it can also be confusing to conceptualize the nesting so it is
+important you try to practice this on your own. In the next section, I
+share a challenge where you can test out your new skills in R
+programming.</p>
 </div>
 </div>
 </div>
